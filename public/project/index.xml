@@ -5,7 +5,7 @@
     <link>/project/</link>
       <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
     <description>Projects</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 27 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Projects</title>
@@ -13,23 +13,896 @@
     </image>
     
     <item>
-      <title>External Project</title>
-      <link>/project/external-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/external-project/</guid>
-      <description></description>
+      <title>Hawaii spatial data exploration</title>
+      <link>/project/hawaii/oswaldo_felix_task3/</link>
+      <pubDate>Wed, 19 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/project/hawaii/oswaldo_felix_task3/</guid>
+      <description>
+
+
+&lt;p&gt;The Hawaiian Islands are home to a variety of different habitats. The big island is known to have 8 out of the 13 different climate zones. Making sure that anthropogenic land use is not adversely affecting the diverse landscape is important. This project seeks to visualize spatial data to observe overlap of land usage and important watersheds of the Hawaiian Islands.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries
+library(tidyverse)
+library(sf)
+library(here)
+
+# Read in data
+watershed_sf &amp;lt;- read_sf(dsn = here::here(&amp;quot;csv&amp;quot;, &amp;quot;watershed&amp;quot;), layer = &amp;quot;Watersheds&amp;quot;) %&amp;gt;% 
+  st_transform(crs = 4326)
+
+land_use_sf &amp;lt;- read_sf(dsn = here::here(&amp;quot;csv&amp;quot;, &amp;quot;land_use&amp;quot;), layer =  &amp;quot;Land_Use_Land_Cover_LULC&amp;quot;) %&amp;gt;% 
+  st_transform(crs = 4326) %&amp;gt;% 
+  filter(landcover != 0) %&amp;gt;% 
+  mutate(landuse = case_when(
+    landcover == &amp;quot;Residential&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Commercial and Services&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Industrial&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Transportation, Communications and Utilities&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Industrial and Commercial Complexes&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Mixed Urban or Built-up Land&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Other Urban or Built-up Land&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Cropland and Pasture&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Orchards, Groves, Vineyards, Nurseries and Ornamental Horticultural Areas&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Confined Feeding Operations&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Other Agricultural Land&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Herbaceous Rangeland&amp;quot; ~ &amp;quot;Rangeland&amp;quot;,
+    landcover == &amp;quot;Shrub and Brush Rangeland&amp;quot; ~ &amp;quot;Rangeland&amp;quot;,
+    landcover == &amp;quot;Mixed Rangeland&amp;quot; ~ &amp;quot;Rangeland&amp;quot;,
+    landcover == &amp;quot;Deciduous Forest Land&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,
+    landcover == &amp;quot;Evergreen Forest Land&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,
+    landcover == &amp;quot;Mixed Forest Land&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,
+    landcover == &amp;quot;Streams and Canals&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, # This is obviously not forest land, 
+    landcover == &amp;quot;Lakes&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, #               but no water shows up on the map
+    landcover == &amp;quot;Reservoirs&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, #          These were all changed to make
+    landcover == &amp;quot;Bays and Estuaries&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, #    the legend on the map less cluttered
+    landcover == &amp;quot;Forested Wetland&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, # ditto
+    landcover == &amp;quot;Nonforested Wetland&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,# ditto
+    landcover == &amp;quot;Dry Salt Flats&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Beaches&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Sandy Areas Other than Beaches&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Bare Exposed Rock&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Strip Mines, Quarries, and Gravel Pits&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Transitional Areas&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Mixed Barren Land&amp;quot; ~ &amp;quot;Barren Land&amp;quot;
+  ))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Citations:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Land Use Land Cover of main Hawaiian Islands as of 1976Source: 1:100,000 1976 Digital GIRAS (Geographic Information Retrieval and Analysis) files. For additional information, please refer to &lt;a href=&#34;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&#34; class=&#34;uri&#34;&gt;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&lt;/a&gt;
+Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Surface Water Hyrdrologic Unit Boundaries (Watersheds) for the 8 major Hawaiian Islands. Source: GDSI, 1995, 1999; State of Hawaii Commission on Water Resource Management (CWRM), 2008. Provided to State GIS, August, 2017.
+Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/watersheds&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/watersheds&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;my_map &amp;lt;- ggplot() +
+  geom_sf(data = land_use_sf, show.legend = T,
+          aes(fill = landuse)) +
+  geom_sf(data = watershed_sf, alpha = 0.5, 
+          color = &amp;quot;mintcream&amp;quot;, fill = NA)+
+  coord_sf(xlim = c(-156.2, -154.7),
+           ylim = c(20.25, 18.9)) +
+  scale_fill_manual(values = c(&amp;quot;#BEAED4&amp;quot;, &amp;quot;#FDC086&amp;quot;, &amp;quot;#FFFF99&amp;quot;, &amp;quot;#386CB0&amp;quot;, &amp;quot;#F0027F&amp;quot;)) +
+  labs(title = &amp;quot;Hawaii Island land use&amp;quot;, fill = &amp;quot;Regions&amp;quot;) +
+  theme_minimal()
+
+my_map&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/hawaii/oswaldo_felix_task3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In this map, the white lines represent the extent of watersheds. Observing the north end of the island there is a concentration of agricultural land, but also defined very small watershed areas. These relatively small watershed areas could allow for easier runoff mitigation as accountability is not as diffuse if there was instead one large watershed. The color palette accentuates urban or built up land highlighting where city development has concentrated on the coast. Many of the small red spots scattered on the island are from industrial power plants. The watershed lines converge at the top of each of the two volcanoes. Mauna Kea is the barren land spot in the northern section of the island, while Mauna Loa is the barren spot in the southern section. Another interesting effect is the order in which land use areas appear as one moves away from the center of the volcanoes. Next to barren land there’s a high chance for rangle land to appear, followed by forests, and then agricultural land.&lt;/p&gt;
+</description>
     </item>
     
     <item>
-      <title>Internal Project</title>
-      <link>/project/internal-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/internal-project/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
+      <title>Bonanza Creek Snowshoe Study</title>
+      <link>/project/bonanza/task1_of/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/project/bonanza/task1_of/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;&lt;img src=&#34;https://cottagelife.com/wp-content/uploads/2019/01/shutterstock_519516277.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Snowshoe hares are an important prey species. This project uses recordings from a catch and release operation over a 13 year time span to infer population dynamics. Using the dataset, the project explores year-to-year weight discrepancies among hares caught in warm months vs cold months. Ultimately, seasonal weight variations follow expected weight variations, but lack an annual trend.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries and data
+
+library(tidyverse)
+library(here)
+library(lubridate)
+library(kableExtra)
+
+hare_df &amp;lt;- read_csv(here::here(&amp;quot;csv&amp;quot;, &amp;quot;showshoe_lter.csv&amp;quot;))
+
+# Wrangle data
+hare_select &amp;lt;- hare_df %&amp;gt;% 
+  select(-time, -notes) %&amp;gt;% 
+  mutate(date = mdy(date),
+         year = lubridate::year(date),
+         month = lubridate::month(date),
+         day = lubridate::day(date)
+          ) %&amp;gt;% 
+  mutate(age = case_when(age %in% c(&amp;quot;J&amp;quot;, &amp;quot;j&amp;quot;, &amp;quot;J 3/4&amp;quot;) ~ &amp;quot;Juvenile&amp;quot;,
+                         age %in% c(&amp;quot;A&amp;quot;, &amp;quot;a 1 yr.&amp;quot;, &amp;quot;a 3/4 yr.&amp;quot;, &amp;quot;a 1 yr&amp;quot;, 
+                                    &amp;quot;1 yr.&amp;quot;, &amp;quot;2 yrs.&amp;quot;, &amp;quot;a 2 yrs.&amp;quot;, &amp;quot;2.25 yrs&amp;quot;, 
+                                    &amp;quot;3.5 yrs.&amp;quot;, &amp;quot;1 yr&amp;quot;, &amp;quot;2 yrs&amp;quot;, &amp;quot;a&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;1.25&amp;quot;, 
+                                    &amp;quot;1.5&amp;quot;, &amp;quot;A 3/4&amp;quot;, &amp;quot;A 1/2&amp;quot;, &amp;quot;3 yrs.&amp;quot;, &amp;quot;2.5 yrs&amp;quot;,
+                                    &amp;quot;3.25 yrs.&amp;quot;, &amp;quot;A 1.5&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;u&amp;quot;, &amp;quot;?&amp;quot;, &amp;quot;U&amp;quot;, &amp;quot;3/4/13&amp;quot;, 
+                                    &amp;quot;1/4/13&amp;quot;, &amp;quot;1/2/13&amp;quot;) ~ &amp;quot;Adult&amp;quot;)
+  ) %&amp;gt;%
+  mutate(season = case_when(month %in% c(4:9) ~ &amp;quot;Summer&amp;quot;,
+                            month %in% c(1:3, 10:12) ~ &amp;quot;Winter&amp;quot;
+                            )
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Visualize data
+ggplot(data = hare_select, aes(x = year, y = weight)) +
+  geom_boxplot(aes(group = year,  y = weight), color = &amp;quot;wheat4&amp;quot;,
+               alpha = 0.8, outlier.shape = NA, varwidth = TRUE) +
+  geom_jitter(aes(pch = age, color = season), 
+             alpha = 0.6, width = 0.2, na.rm = FALSE) +
+  facet_wrap(~season) +
+  guides(color = FALSE) +
+  labs(pch = &amp;quot;Age&amp;quot;, x = &amp;quot;Year&amp;quot;, y = &amp;quot;Weight [g]&amp;quot;,
+       title = &amp;quot;Snowshoe hare annual weight&amp;quot;) +
+  theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/bonanza/task1_of_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Figure 1.&lt;/strong&gt; &lt;em&gt;Summer months have a wide range of weight values due to the abundance of smaller juveniles during birthing months. Nearly any hare below 1000 grams was a juvenile. The width of the boxplot shows the relative strength of its median estimate.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;em&gt;Some entries for age where logged with a different method and have been omitted as NA’s&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Below is a table of summary statistics for years and seasons with a large sample size (n &amp;gt; 100).&lt;/p&gt;
+&lt;div id=&#34;raw-data-summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Raw data summary&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Display table
+
+kable(hare_table) %&amp;gt;%
+  kable_styling(bootstrap_options = c(&amp;quot;striped&amp;quot;, &amp;quot;basic&amp;quot;, &amp;quot;hover&amp;quot;)) %&amp;gt;% 
+  row_spec(c(1,3,5:7,9,11:13,15), color = &amp;quot;red&amp;quot;) %&amp;gt;% 
+  row_spec(c(2,4,6,8,10,14), bold = TRUE, color = &amp;quot;skyblue&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table table-striped table-hover&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Season
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Sample Size
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Mean Weight [g]
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Standard Error
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1999
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+279
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1157.264
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+22.55149
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+1999
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;font-weight: bold;color: skyblue !important;&#34;&gt;
+Winter
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+113
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+1520.895
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+28.52836
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2000
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+126
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1208.000
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+39.41050
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+2000
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;font-weight: bold;color: skyblue !important;&#34;&gt;
+Winter
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+134
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+1579.327
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+18.41564
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2005
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+113
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1124.779
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+41.53135
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;font-weight: bold;color: skyblue !important;&#34;&gt;
+2006
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;font-weight: bold;color: skyblue !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;font-weight: bold;color: skyblue !important;&#34;&gt;
+161
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;font-weight: bold;color: skyblue !important;&#34;&gt;
+1314.767
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;font-weight: bold;color: skyblue !important;&#34;&gt;
+25.26331
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2007
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+102
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1232.800
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+40.41503
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+2007
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;font-weight: bold;color: skyblue !important;&#34;&gt;
+Winter
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+101
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+1519.468
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+16.78159
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2008
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+223
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1219.976
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+29.81252
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+2008
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;font-weight: bold;color: skyblue !important;&#34;&gt;
+Winter
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+128
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+1499.735
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+14.61380
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2009
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+441
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1322.673
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+13.22504
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2010
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+332
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1376.043
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+14.28255
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2011
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+300
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1355.734
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+16.83613
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+2011
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;font-weight: bold;color: skyblue !important;&#34;&gt;
+Winter
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+127
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+1526.221
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;font-weight: bold;color: skyblue !important;&#34;&gt;
+15.57690
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+2012
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;color: red !important;&#34;&gt;
+Summer
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+120
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+1314.815
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;color: red !important;&#34;&gt;
+21.91087
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Figure 2.&lt;/strong&gt; &lt;em&gt;Winter months consistently have the highest average weight. Extra grams of fat help keep the hare warm, and most hares are adults. Summer sample sizes may be larger due to added abundance of juveniles.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;em&gt;This data includes information from hares not plotted on the previous graph (age = NA).&lt;/em&gt;&lt;/p&gt;
+&lt;div id=&#34;citations&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Citations&lt;/h3&gt;
+&lt;p&gt;Data from: Kielland K., F. S. Chapin, R. W. Ruess. 2017. Snowshoe hare physical data in Bonanza Creek Experimental Forest: 1999-Present. Environmental Data Initiative. &lt;a href=&#34;https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14&#34; class=&#34;uri&#34;&gt;https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Spiny lobster abundance and size within Santa Barbara LTER</title>
+      <link>/project/lobsters/kat_waldo_esm206_ass4_lobsters/</link>
+      <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>/project/lobsters/kat_waldo_esm206_ass4_lobsters/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;&lt;img src=&#34;https://cimioutdoored.org/ca-spiny-lobster/california-spiny-lobster/&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This report analyzes differences in the abundance and size of California Spiny Lobsters (Panulirus interruptus) observed at five locations along the Santa Barbara coastline by the Santa Barbara Coastal Long Term Ecological Research program (SBC LTER). Spiny lobsters play a critical predatory role in Southern California’s giant kelp forests, but are threatened by fishing pressure. The California Fish and Game’s Network of Marine Protected Areas (MPAs), Naples and Isla Vista, provide a refuge from fishing pressure and thus a unique oportunity to compare and contrast lobsters living in communities subject to and sheltered from fishing. To this end, this report examines:
+- A: changes in annual lobster abundance (counts) over time by site;
+- B: shifts in lobster size distributions between 2012 and 2018; and
+- C: differences between mean lobster sizes at MPA vs. non-MPA sites in 2012 and 2018.&lt;/p&gt;
+&lt;p&gt;As a result of this examination, it was found that:
+- between MPA and non-MPA sites, there was a significant difference (p-value = 0.003) in lobster size in 2012, and a significant difference (p-value = 0.000003) in lobster size in 2018;
+- within MPA sites, there was a significant (p-value = 0.0004) mean size difference between lobsters observed in 2012 and 2018; and
+- within non-MPA sites, there was not a significant (p-value = 0.204) mean size difference in lobsters observed between 2012 and 2018.&lt;/p&gt;
+&lt;p&gt;These findings provide insight into kelp forest management, indicating that MPAs could be effective at helping support healthy lobster populations.&lt;/p&gt;
+&lt;p&gt;DATA AND METHODS:
+The data used in this report, from the SBC LTER’s two study reefs located in or near the Naples and Isla Vista MPAs, ranges from 2012 to present (2019). Observations were collected annually by divers in late summer before the start of the fishing season from two sites located within the MPAs and three located outside of the MPAs (Arroyo Quemado, Mohawk and Carpinteria). The dependent variables examined were time (the year of observation), and locaton (the site), and the independent variables examined were size (the carapace length in millimeters ) and count (the number of lobsters). Statistical difference was assessed using a two-sided t-test with a Welsh assumption, and a level of significance of 0.05. Analysis was performed using Rstudio software version 1.2.1335.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----
+# run libraries and read data
+# ----
+
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(kableExtra)
+
+lobster_df &amp;lt;- read_csv(here::here(&amp;quot;csv&amp;quot;, &amp;quot;lobster_abundance_sbc_lter.csv&amp;quot;), 
+                       na = &amp;quot;-99999&amp;quot;) %&amp;gt;% 
+  clean_names()
+
+tidy_lob &amp;lt;- lobster_df %&amp;gt;% 
+  uncount(count)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;results-a&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Results A:&lt;/h2&gt;
+&lt;p&gt;Visually explore changes in annual lobster abundance (counts) by site. After grouping observations to find lobster counts for each year, create a finalized data visualization (no modeling/stats needed) showing changes in annual lobster abundance at the five sites over time.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----
+# Data wrangling
+# ----
+
+lob_site_yr &amp;lt;- tidy_lob %&amp;gt;%
+  group_by(year) %&amp;gt;% 
+  count(site) %&amp;gt;% 
+  dplyr::mutate(
+    yr = dplyr::case_when(
+      year %in% &amp;quot;2012&amp;quot; ~ &amp;quot;&amp;#39;12&amp;quot;,
+      year %in% &amp;quot;2013&amp;quot; ~ &amp;quot;&amp;#39;13&amp;quot;,
+      year %in% &amp;quot;2014&amp;quot; ~ &amp;quot;&amp;#39;14&amp;quot;,
+      year %in% &amp;quot;2015&amp;quot; ~ &amp;quot;&amp;#39;15&amp;quot;,
+      year %in% &amp;quot;2016&amp;quot; ~ &amp;quot;&amp;#39;16&amp;quot;,
+      year %in% &amp;quot;2017&amp;quot; ~ &amp;quot;&amp;#39;17&amp;quot;,
+      year %in% &amp;quot;2018&amp;quot; ~ &amp;quot;&amp;#39;18&amp;quot;,
+    )
+  )
+   
+
+# ----
+# Data plotting
+# ----
+  
+ggplot(data = lob_site_yr, aes(x = yr, y = n)) +
+  geom_col(aes(fill = site), show.legend = FALSE, 
+           color = &amp;quot;black&amp;quot;,  alpha = 0.8) +
+  scale_fill_brewer(palette = &amp;quot;Pastel1&amp;quot;) + # Chose this color palette to have color stand out
+  scale_y_continuous(expand = c(0,0)) + # Removed bottom space
+  labs(x = &amp;quot;Year&amp;quot;, y = &amp;quot;Number of Lobsters&amp;quot;, title = &amp;quot;Number of Lobsters at Each Site from 2012-2018&amp;quot;, fill = &amp;quot;Site&amp;quot;) +
+  theme_minimal() +
+  facet_wrap(~site, scales = &amp;quot;free_x&amp;quot;) +
+  theme(panel.spacing = unit(2, &amp;quot;lines&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Fig. 1: Lobster Abundance per site for years 2012-2018. Note that both sites Naples (NAPL) and Isla Vista (IVEE) are MPAs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;results-b&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Results B:&lt;/h2&gt;
+&lt;p&gt;Visually explore lobster size distribution shifts by comparing lobster sizes in 2012 and 2018. Visually explore the size distributions for lobsters observed at the 5 different sites in 2012, and in 2018 (i.e. you will have a total of 10 size distributions shown: for each of the 5 sites, one for 2012 and one for 2018). Make a finalized graph that clearly and professionally shows community size distributions at each site in the 2 years, allowing the reader to easily interpret distribution shifts.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----
+# Data wrangling
+# ----
+
+lob_size_yr &amp;lt;- tidy_lob %&amp;gt;% 
+  select(year, site, size_mm) %&amp;gt;% 
+  filter(year == c(2012,2018))
+
+# ----
+# Data plotting
+# ----
+
+ggplot(lob_size_yr) +
+  # Made geom_violin with areas proportional to count
+  geom_violin(show.legend = FALSE, scale = &amp;quot;count&amp;quot;,
+              aes(x = site, y = size_mm, fill = site)) + 
+  scale_fill_brewer(palette = &amp;quot;Pastel1&amp;quot;) +
+  facet_wrap(~year) +
+  # Removed bottom space and showed full scale
+  scale_y_continuous(expand = c(0,0), limits = c(0,200)) + 
+  labs(y = &amp;quot;Size [mm]&amp;quot;, x = &amp;quot;Site&amp;quot;, caption = &amp;quot;Area is proportional to count&amp;quot;,
+       title = &amp;quot;Lobster size distribution&amp;quot;) +
+  theme_minimal()+
+  geom_vline(aes(xintercept = 5.6), color = &amp;quot;black&amp;quot;, linetype = 2, lwd=.5)+
+  annotate(geom = &amp;quot;text&amp;quot;,
+           x = 3,
+           y = 35,
+           label = &amp;quot;*&amp;quot;,
+           color = &amp;quot;black&amp;quot;,
+           size = 7)+
+  annotate(geom = &amp;quot;text&amp;quot;,
+           x = 5,
+           y = 35,
+           label = &amp;quot;*&amp;quot;,
+           color = &amp;quot;black&amp;quot;,
+           size = 7)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Fig. 2: Distribution of lobster sizes for each site for years 2012 and 2018. Note that MPA sites Naples and Isla Vista are indicated with asterisks (*).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;results-c&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Results C:&lt;/h2&gt;
+&lt;p&gt;Compare mean lobster sizes at MPA vs. non-MPA sites in 2012 and 2018. Here, for each year (2012 and 2018) consolidate the size observations into only two groups: MPA and non-MPA lobsters. Then answer the following four questions:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----
+# Data wrangling
+# ----
+
+lob_mpa &amp;lt;- lob_size_yr %&amp;gt;% 
+  filter(site %in% c(&amp;quot;IVEE&amp;quot;, &amp;quot;NAPL&amp;quot;)) 
+  
+lob_nmpa &amp;lt;- lob_size_yr %&amp;gt;% 
+  filter(site %in% c(&amp;quot;AQUE&amp;quot;, &amp;quot;CARP&amp;quot;, &amp;quot;MOHK&amp;quot;)) 
+
+# MPA 2012
+sample_mpa_12 &amp;lt;- lob_mpa %&amp;gt;%
+  filter(year == 2012) %&amp;gt;% 
+  pull(size_mm)
+
+# Non-MPA 2012  
+sample_nmpa_12 &amp;lt;- lob_nmpa %&amp;gt;%
+  filter(year == 2012) %&amp;gt;% 
+  pull(size_mm)
+
+# MPA 2018
+sample_mpa_18 &amp;lt;- lob_mpa %&amp;gt;% 
+  filter(year == 2018) %&amp;gt;% 
+  pull(size_mm)
+
+# Non-MPA 2018
+sample_nmpa_18 &amp;lt;- lob_nmpa %&amp;gt;% 
+  filter(year == 2018) %&amp;gt;% 
+  pull(size_mm)
+
+# 2012 observations mpa vs non-mpa   
+mn12_ttest &amp;lt;- t.test(sample_mpa_12, sample_nmpa_12)
+mn12_ttest # sig diff&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_mpa_12 and sample_nmpa_12
+## t = -3.3723, df = 23.654, p-value = 0.002559
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -16.41918  -3.94582
+## sample estimates:
+## mean of x mean of y 
+##   65.6875   75.8700&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When the lobster sizes observed in 2012 within the two MPA sites and within the three non-MPA sites are compared, it seems reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 10. A Welch Two Sample t-test with 23.65 degrees of freedom, and a t-statistic of -3.37 yeilded a p-value of 0.003 indicating that there is only a 0.3% chance that there is no difference between the observed sizes of lobsters within MPA sites and within non-MPA sites.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 2018 observations mpa vs non-mpa
+mn18_ttest &amp;lt;- t.test(sample_mpa_18, sample_nmpa_18)
+mn18_ttest # sig diff&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_mpa_18 and sample_nmpa_18
+## t = 4.6828, df = 576.33, p-value = 3.532e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.250928 5.503165
+## sample estimates:
+## mean of x mean of y 
+##  77.79133  73.91429&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Similar to that found in 2012, when the lobster sizes observed in 2018 within the two MPA sites and within the three non-MPA sites are compared, it seems reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 4. A Welch Two Sample t-test with 576.33 degrees of freedom, and a t-statistic of 4.68 yeilded a p-value of 0.000003 indicating that there is only a 0.0004% chance that there is no difference between the observed sizes of lobsters within MPA sites and within non-MPA sites.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# MPA sites only
+mpa_ttest &amp;lt;- t.test(sample_mpa_12, sample_mpa_18)
+mpa_ttest # sig diff&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_mpa_12 and sample_mpa_18
+## t = -4.4321, df = 15.993, p-value = 0.0004188
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -17.893355  -6.314309
+## sample estimates:
+## mean of x mean of y 
+##  65.68750  77.79133&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When the lobster sizes observed in 2012 within the two MPA sites are compared to those observed in 2018, it seems reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 12. A Welch Two Sample t-test with 15.99 degrees of freedom, and a t-statistic of -4.43 yeilded a p-value of 410^{-4} indicating that there is only a 0.04% chance that there is no difference between the observed sizes of lobsters between years 2012 and 2018.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Non MPA sites only
+nmpa_ttest &amp;lt;- t.test(sample_nmpa_12, sample_nmpa_18)
+nmpa_ttest #not sig diff.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_nmpa_12 and sample_nmpa_18
+## t = 1.2772, df = 148.66, p-value = 0.2035
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.070034  4.981462
+## sample estimates:
+## mean of x mean of y 
+##  75.87000  73.91429&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When the lobster sizes observed in 2012 within the three non-MPA sites are compared to those observed in 2018, it is not reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 2. A Welch Two Sample t-test with 148.66 degrees of freedom, and a t-statistic of 1.28 yeilded a p-value of 0.204 indicating that there is a 20% chance that there is no difference between the observed sizes of lobsters between years 2012 and 2018. Since this is quite a high percentage, it is quite possible that the observed differences between the two groups are merely due to chance.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Means
+mean_mpa_2012 &amp;lt;- mn12_ttest$estimate[1] 
+mean_nonmpa_2012 &amp;lt;- mn12_ttest$estimate[2]
+mean_mpa_2018 &amp;lt;- mn18_ttest$estimate[1] 
+mean_nonmpa_2018 &amp;lt;- mn18_ttest$estimate[2] 
+# Calculate Standard Deviations
+sd_mpa_2012 &amp;lt;- sd(sample_mpa_12[&amp;quot;size&amp;quot;], na.rm = TRUE) 
+sd_nonmpa_2012 &amp;lt;- sd(sample_nmpa_12[&amp;quot;size&amp;quot;], na.rm = TRUE)
+sd_mpa_2018 &amp;lt;- sd(sample_mpa_18[&amp;quot;size&amp;quot;], na.rm = TRUE)
+sd_nonmpa_2018 &amp;lt;- sd(sample_nmpa_18[&amp;quot;size&amp;quot;], na.rm = TRUE)
+# Calculate Sample Sizes
+n_mpa_2012 &amp;lt;- sum(!is.na(sample_mpa_12[&amp;quot;size&amp;quot;]))
+n_nonmpa_2012 &amp;lt;- sum(!is.na(sample_nmpa_12[&amp;quot;size&amp;quot;]))
+n_mpa_2018 &amp;lt;- sum(!is.na(sample_mpa_18[&amp;quot;size&amp;quot;]))
+n_nonmpa_2018 &amp;lt;- sum(!is.na(sample_nmpa_18[&amp;quot;size&amp;quot;]))
+
+# Wrangle data for statistics summary table
+lobster_sum_tab &amp;lt;- lob_size_yr %&amp;gt;%
+  dplyr::mutate(
+    MPA_Status = dplyr::case_when(
+      site %in% &amp;quot;AQUE&amp;quot; ~ &amp;quot;Non-MPA&amp;quot;,
+      site %in% &amp;quot;CARP&amp;quot; ~ &amp;quot;Non-MPA&amp;quot;,
+      site %in% &amp;quot;IVEE&amp;quot; ~ &amp;quot;MPA&amp;quot;,
+      site %in% &amp;quot;MOHK&amp;quot; ~ &amp;quot;Non-MPA&amp;quot;,
+      site %in% &amp;quot;NAPL&amp;quot; ~ &amp;quot;MPA&amp;quot;
+      )
+    ) %&amp;gt;% 
+group_by(MPA_Status, year) %&amp;gt;%
+summarize(mean = mean(size_mm),
+          sd = sd(size_mm),
+          sample_size = n())
+
+lobster_sum_tab %&amp;gt;%
+kable(col.names = c(&amp;quot;MPA Status&amp;quot;,
+                    &amp;quot;Year&amp;quot;,
+                    &amp;quot;Mean Lobster Size [mm]&amp;quot;,
+                    &amp;quot;Standard Deviation&amp;quot;,
+                    &amp;quot;Size of Sample (Lobster Counts)&amp;quot;),
+      caption = &amp;quot;Table 1: Mean lobster size, standard deviation, and size of samples for MPA and non-MPA sites in 2012 and 2018.&amp;quot;) %&amp;gt;%
+kable_styling(bootstrap_options = &amp;quot;striped&amp;quot;,
+              full_width = F,
+              position = &amp;quot;left&amp;quot;
+              ) %&amp;gt;%
+add_header_above(c(&amp;quot;LOBSTER SIZE METRICS&amp;quot; = 5))&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table table-striped&#34; style=&#34;width: auto !important; &#34;&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-8&#34;&gt;Table 1: &lt;/span&gt;Table 1: Mean lobster size, standard deviation, and size of samples for MPA and non-MPA sites in 2012 and 2018.
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; &#34; colspan=&#34;5&#34;&gt;
+&lt;div style=&#34;border-bottom: 1px solid #ddd; padding-bottom: 5px; &#34;&gt;
+LOBSTER SIZE METRICS
+&lt;/div&gt;
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+MPA Status
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Year
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Mean Lobster Size [mm]
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Standard Deviation
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Size of Sample (Lobster Counts)
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+MPA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2012
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+65.68750
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.75000
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+16
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+MPA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2018
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+77.79133
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+12.10836
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+623
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Non-MPA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2012
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+75.87000
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+13.76400
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Non-MPA
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2018
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+73.91429
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11.22656
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+280
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;As noted earlier, MPA and non-MPA lobster sizes from 2012 were found to vary significantly from each other. MPA and non-MPA lobster sizes from 2018 were also found to vary signficantly. When lobster sizes in 2012 were compared to those in 2018 within the MPA sites, a significant difference was also found. Only a comparison of lobster sizes within the non-MPA sites between years 2012 and 2018 did not yeild a significant difference between the two groups. However, as seen in the table above, the sample size for the 2012 MPA lobsters was extremely small. Small sample sizes are more likely to inaacurately represent their true populations and thus, it is a bit risky to conclude there is a significant difference between the 2012 MPA and non-MPA lobsters. Ideally, more data would have been collected in 2012 to allow for a more robust comparison.
+Generally, these findings seem to indicate that the positive impacts of MPAs start to manifest over time, since in 2018 more lobsters were found in the MPA sites and these lobsters tended to also be of larger body size. However, data should be examined for 2019 and 2020 in order to see if this trend continues.&lt;/p&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;p&gt;Data:
+Reed D. 2019. SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012. Environmental Data Initiative. &lt;a href=&#34;https://doi.org/10.6073/pasta/a593a675d644fdefb736750b291579a0&#34; class=&#34;uri&#34;&gt;https://doi.org/10.6073/pasta/a593a675d644fdefb736750b291579a0&lt;/a&gt;. Dataset accessed 10/30/2019.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mono Lake Annual Levels</title>
+      <link>/project/mono_lake/mono_lake/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/project/mono_lake/mono_lake/</guid>
+      <description>
+
+
+&lt;p&gt;This project was an attempt to make a pretty graph exploring Mono Lake water levels data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----
+# Install packages and read data
+# ----
+
+library(tidyverse)
+library(janitor)
+library(tidyr)
+library(here)
+
+raw_mono &amp;lt;- read_csv(here::here(&amp;quot;csv&amp;quot;, &amp;quot;Mono Lake Annual Levels.csv&amp;quot;), skip = 5)
+
+# ----
+# Clean data
+# ----
+
+tidy_mono &amp;lt;- raw_mono %&amp;gt;% 
+  clean_names()
+
+# ----
+# Make graph
+# ----
+
+ggplot(data = tidy_mono) +
+  # Made the grey background with dashed line
+  annotate(&amp;quot;rect&amp;quot;, xmin = 1913, xmax = 2017, 
+           ymin = 6370, ymax = 6430,
+           fill = &amp;quot;honeydew4&amp;quot;, alpha = 0.3) +
+  geom_segment(aes(x = 1913, xend = 1913, 
+                   y = 6370, yend = 6430),
+               linetype = &amp;quot;dashed&amp;quot;, color = &amp;quot;honeydew4&amp;quot;, 
+               alpha = 0.4) + 
+  # Made the blue background with dashed line
+  annotate(&amp;quot;rect&amp;quot;, xmin = 1941, xmax = 2017, 
+           ymin = 6370, ymax = 6425,
+           fill = &amp;quot;steelblue1&amp;quot;, alpha = 0.3) +
+  geom_segment(aes(x = 1941, xend = 1941, 
+                   y = 6370, yend = 6425),
+               linetype = &amp;quot;dashed&amp;quot;, color = &amp;quot;steelblue1&amp;quot;, 
+               alpha = 0.4) +
+  # Made the orange background with dashed line
+  annotate(&amp;quot;rect&amp;quot;, xmin = 1982, xmax = 2017, 
+           ymin = 6370, ymax = 6420,
+           fill = &amp;quot;tan1&amp;quot;, alpha = 0.5) +
+  geom_segment(aes(x = 1982, xend = 1982, 
+                   y = 6370, yend = 6420),
+               linetype = &amp;quot;dashed&amp;quot;, color = &amp;quot;tan1&amp;quot;, 
+               alpha = 0.7) +
+  # Layered the main line on top of backgrounds
+  geom_line(aes(x = year,
+                y = lake_level_feet_above_sea_level)) +
+  # Added horizontal lines
+  geom_hline(aes(yintercept = stable_level), size = 1, 
+            color = &amp;quot;red&amp;quot;, linetype = 3) +
+  geom_hline(aes(yintercept = 6377), size = 1,
+            color = &amp;quot;navajowhite4&amp;quot;, linetype = 3) +
+  # Here I insert all the labels
+  # There is an extra space after fill to make the = signs line up
+  geom_label(label = &amp;quot;LA Aqueduct&amp;quot;, x = 1935, y = 6428,
+             fill  = &amp;quot;honeydew4&amp;quot;, color = &amp;quot;white&amp;quot;, fontface = &amp;quot;bold&amp;quot;) +
+  geom_label(label = &amp;quot;Mono Basin Diversion&amp;quot;, x = 1965, y = 6423,
+             fill  = &amp;quot;steelblue1&amp;quot;, color = &amp;quot;white&amp;quot;, fontface = &amp;quot;bold&amp;quot;) +
+  geom_label(label = &amp;quot;Reserve Created&amp;quot;, x = 2000, y = 6418,
+             fill  = &amp;quot;tan1&amp;quot;, color = &amp;quot;white&amp;quot;, fontface = &amp;quot;bold&amp;quot;) +
+  geom_label(label = &amp;quot;Stable Water Level&amp;quot;, fill = &amp;quot;red&amp;quot;,
+            color  = &amp;quot;white&amp;quot;, x = 1870, y = 6394, fontface = &amp;quot;bold&amp;quot;) +
+  geom_label(label = &amp;quot;Land Bridges Appear&amp;quot;, fill = &amp;quot;navajowhite4&amp;quot;,
+             color = &amp;quot;white&amp;quot;, x = 1872, y = 6379, fontface = &amp;quot;bold&amp;quot;) +
+  # Tailored my scale - added breaks in y-axis to clear origin
+  scale_y_continuous(limits = c(6370, 6430),
+                     expand = c(0, 0),
+                     breaks = c(6375, 6385, 6395, 6405, 6415, 6425)) +
+  scale_x_continuous(limits = c(1850, 2017),
+                     expand = c(0, 0)) +
+  # Labeled the y-axis and title. Removed the x-axis label
+  labs(x = &amp;quot;Year&amp;quot;, y = &amp;quot;Water Level [ft]&amp;quot;, 
+       title = &amp;quot;150 Years of Mono Lake (1850 - 2017)&amp;quot;) +
+  theme_minimal()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/mono_lake/mono_lake_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This finalized graph shows the change in Mono Lake’s water levels over time. Sections of the graph are shaded to highlight important historical changes in Mono Lake’s water usage. The LA Aqueduct was completed in 1913 and after fully acquiring rights to the Mono Lake Basin water it began diverting water from the lake’s source rivers in 1941. Water levels bounce back after Mono Lake Tufa State Reserve is created. Mandates stablished in 1994 require the lake to maintain an average water level of 6392 ft indicated on the graph by the dotted red line. When water levels are low enough land bridges appear that allow animals in otherwise separate habitats to interact.&lt;/p&gt;
+&lt;div id=&#34;citations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Citations&lt;/h2&gt;
+&lt;p&gt;Data sourced from:
+&lt;a href=&#34;https://www.monobasinresearch.org/&#34; class=&#34;uri&#34;&gt;https://www.monobasinresearch.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Information about Mono Lake sourced from:
+&lt;a href=&#34;https://www.monolake.org/about/story&#34; class=&#34;uri&#34;&gt;https://www.monolake.org/about/story&lt;/a&gt;
+&lt;a href=&#34;http://www.monolake.org/relicted/mltsroldchrono.htm&#34; class=&#34;uri&#34;&gt;http://www.monolake.org/relicted/mltsroldchrono.htm&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
 </description>
     </item>
     
