@@ -11,7 +11,7 @@ tags:
 knitr::opts_chunk$set(echo = T, message = FALSE, warning = FALSE)
 ```
 
-This project was an attempt to make a pretty graph exploring Mono Lake water levels data. 
+This project was an attempt to make the most imformative graph exploring Mono Lake water levels data. 
 
 
 ```{r}

@@ -19,14 +19,16 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[item]]
-  organization = "Coursera"
-  organization_url = "https://www.coursera.org"
-  title = "Neural Networks and Deep Learning"
+  organization = "Harvard-China Project"
+  organization_url = "https://chinaproject.harvard.edu/"
+  title = "Carbon Accounting with Second Price Auctioning"
   url = ""
-  certificate_url = "https://www.coursera.org"
+  certificate_url = ""
   date_start = "2018-10-01"
   date_end = ""
-  description = ""
+  description = """
+  Our group developed a proposal for a market-based soultion to decreasing China's carbon emisisons. Among competiting proposals, ours was chosen by Tsinghua University professors and awarded a 1st place prize. 
+  """
 
 [[item]]
   organization = "edX"

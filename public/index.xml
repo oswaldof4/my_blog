@@ -879,7 +879,7 @@ Reed D. 2019. SBC LTER: Reef: Abundance, size and fishing effort for California 
       <description>
 
 
-&lt;p&gt;This project was an attempt to make a pretty graph exploring Mono Lake water levels data.&lt;/p&gt;
+&lt;p&gt;This project was an attempt to make the most imformative graph exploring Mono Lake water levels data.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----
 # Install packages and read data
 # ----

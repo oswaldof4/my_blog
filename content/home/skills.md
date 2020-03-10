@@ -17,19 +17,36 @@ subtitle = ""
 [[feature]]
   icon = "r-project"
   icon_pack = "fab"
-  name = "R"
-  description = "90%"
+  name = "R-Studio"
+  description = "+6 Months"
   
 [[feature]]
-  icon = "chart-line"
-  icon_pack = "fas"
-  name = "Statistics"
-  description = "100%"  
+  icon = "file-excel"
+  icon_pack = "far"
+  name = "Microsoft Office Suite"
+  description = "+5 Years"  
   
 [[feature]]
-  icon = "camera-retro"
+  icon = "file-pdf"
+  icon_pack = "far"
+  name = "Adobe Creative Suite"
+  description = "+3 Years"
+  
+[[feature]]
+  icon = "language"
   icon_pack = "fas"
-  name = "Photography"
-  description = "10%"
-
+  name = "Spanish"
+  description = "Native Speaker"
+  
+[[feature]]
+  icon = "database"
+  icon_pack = "fas"
+  name = "GIS"
+  description = "+3 Months"
+  
+[[feature]]
+  icon = "music"
+  icon_pack = "fas"
+  name = "Orchestra/Band"
+  description = "Clarinet +8 Years"  
 +++

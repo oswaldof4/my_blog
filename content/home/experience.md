@@ -18,27 +18,63 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
-  title = "CEO"
-  company = "GenCoin"
-  company_url = ""
-  location = "California"
-  date_start = "2017-01-01"
+  title = "Energy Analyst Intern"
+  company = "UCSB Energy & Engineering"
+  company_url = "https://www.energy.ucsb.edu/"
+  location = "Goleta, CA"
+  date_start = "2019-12-01"
   date_end = ""
   description = """
-  Responsibilities include:
-  
-  * Analysing
-  * Modelling
-  * Deploying
+  * Facilitated the implementation of a participatory thermal sensing tool to increase campus comfort and reduce energy waste
+  * Collaborated on Green Initiative Fund grant proposal for replacing tennis court lighting with efficient LEDs
   """
 
 [[experience]]
-  title = "Professor"
-  company = "University X"
-  company_url = ""
-  location = "California"
-  date_start = "2016-01-01"
-  date_end = "2016-12-31"
-  description = """Taught electronic engineering and researched semiconductor physics."""
-
+  title = "GSACC Treasurer"
+  company = "Graduate Student Apartments Community Council"
+  company_url = "https://www.housing.ucsb.edu/graduate-students/graduate-student-apartments-community-council-gsacc"
+  location = "Goleta, CA"
+  date_start = "2019-10-01"
+  date_end = ""
+  description = """
+  * Managed an annual budget of $10,000 for event programming and student reimbursement
+  * Currently implementing a sustainability focus for our event planning and community gift
+  """
+[[experience]]
+  title = "Student Tour Guide"
+  company = "Harvard University Information Center"
+  company_url = "https://www.harvard.edu/on-campus/visit-harvard/tours"
+  location = "Cambridge, MA"
+  date_start = "2019-06-01"
+  date_end = "2019-08-01"
+  description = """
+  * Represented Harvard University answering phone calls providing visitor information
+  * Examined historical and statistical information used to inform tour guide points with the aim of recruiting the next generation of bright and talented Harvard students
+  """
+  
+[[experience]]
+  title = "Office Assistant"
+  company = "Harvard Graduate School of Design Architecture Department"
+  company_url = "https://www.gsd.harvard.edu/architecture/"
+  location = "Cambridge, MA"
+  date_start = "2016-02-01"
+  date_end = "2019-08-01"
+  description = """
+  * Managed mailroom business operations (filing, tracking, delivery) ensuring incoming mail and parcels reached their destination on time 
+  * Improved office space management through advancing archival projects focused on clearing storage rooms with documents dating back to the 1980s
+  """
+  
+[[experience]]
+  title = "District Office Intern"
+  company = "City of Los Angeles 10th District"
+  company_url = "http://herbwesson.com/"
+  location = "Los Angeles, CA"
+  date_start = "2018-06-01"
+  date_end = "2018-08-01"
+  description = """
+  * Responded to constituent service requests filing appropriate work orders and informing the appropriate offices of outstanding requests
+  * Managed our public relations through answering phone inquiries
+  * Summarized Los Angeles Homeless Initiative policy and updated municipal codes to efficiently inform elected representatives of the new protocol
+  * Set up local community “Movies at the Park” events assisting in food service and waste management before and after
+  """
 +++
