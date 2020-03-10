@@ -12,12 +12,12 @@ library(blogdown)
 ```
 
 ```{r, eval = F}
-new_site(dir = "website",
-         theme = "gcushen/hugo-academic", 
-         sample = TRUE, 
-         theme_example = TRUE, 
-         empty_dirs = TRUE,
-         to_yaml = TRUE)
+# new_site(dir = "website",
+#          theme = "gcushen/hugo-academic", 
+#          sample = TRUE, 
+#          theme_example = TRUE, 
+#          empty_dirs = TRUE,
+#          to_yaml = TRUE)
 ```
 
 ```{r, eval = F}
