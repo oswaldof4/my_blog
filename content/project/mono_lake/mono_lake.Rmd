@@ -1,0 +1,106 @@
+---
+title: "Mono Lake Annual Levels"
+author: "Oswaldo Felix"
+date: "2019-10-20"
+output: html_document
+tags:
+- timeseries
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, message = FALSE, warning = FALSE)
+```
+
+This project was an attempt to make a pretty graph exploring Mono Lake water levels data. 
+
+
+```{r}
+# ----
+# Install packages and read data
+# ----
+
+library(tidyverse)
+library(janitor)
+library(tidyr)
+library(here)
+
+raw_mono <- read_csv(here::here("csv", "Mono Lake Annual Levels.csv"), skip = 5)
+
+# ----
+# Clean data
+# ----
+
+tidy_mono <- raw_mono %>% 
+  clean_names()
+
+# ----
+# Make graph
+# ----
+
+ggplot(data = tidy_mono) +
+  # Made the grey background with dashed line
+  annotate("rect", xmin = 1913, xmax = 2017, 
+           ymin = 6370, ymax = 6430,
+           fill = "honeydew4", alpha = 0.3) +
+  geom_segment(aes(x = 1913, xend = 1913, 
+                   y = 6370, yend = 6430),
+               linetype = "dashed", color = "honeydew4", 
+               alpha = 0.4) + 
+  # Made the blue background with dashed line
+  annotate("rect", xmin = 1941, xmax = 2017, 
+           ymin = 6370, ymax = 6425,
+           fill = "steelblue1", alpha = 0.3) +
+  geom_segment(aes(x = 1941, xend = 1941, 
+                   y = 6370, yend = 6425),
+               linetype = "dashed", color = "steelblue1", 
+               alpha = 0.4) +
+  # Made the orange background with dashed line
+  annotate("rect", xmin = 1982, xmax = 2017, 
+           ymin = 6370, ymax = 6420,
+           fill = "tan1", alpha = 0.5) +
+  geom_segment(aes(x = 1982, xend = 1982, 
+                   y = 6370, yend = 6420),
+               linetype = "dashed", color = "tan1", 
+               alpha = 0.7) +
+  # Layered the main line on top of backgrounds
+  geom_line(aes(x = year,
+                y = lake_level_feet_above_sea_level)) +
+  # Added horizontal lines
+  geom_hline(aes(yintercept = stable_level), size = 1, 
+            color = "red", linetype = 3) +
+  geom_hline(aes(yintercept = 6377), size = 1,
+            color = "navajowhite4", linetype = 3) +
+  # Here I insert all the labels
+  # There is an extra space after fill to make the = signs line up
+  geom_label(label = "LA Aqueduct", x = 1935, y = 6428,
+             fill  = "honeydew4", color = "white", fontface = "bold") +
+  geom_label(label = "Mono Basin Diversion", x = 1965, y = 6423,
+             fill  = "steelblue1", color = "white", fontface = "bold") +
+  geom_label(label = "Reserve Created", x = 2000, y = 6418,
+             fill  = "tan1", color = "white", fontface = "bold") +
+  geom_label(label = "Stable Water Level", fill = "red",
+            color  = "white", x = 1870, y = 6394, fontface = "bold") +
+  geom_label(label = "Land Bridges Appear", fill = "navajowhite4",
+             color = "white", x = 1872, y = 6379, fontface = "bold") +
+  # Tailored my scale - added breaks in y-axis to clear origin
+  scale_y_continuous(limits = c(6370, 6430),
+                     expand = c(0, 0),
+                     breaks = c(6375, 6385, 6395, 6405, 6415, 6425)) +
+  scale_x_continuous(limits = c(1850, 2017),
+                     expand = c(0, 0)) +
+  # Labeled the y-axis and title. Removed the x-axis label
+  labs(x = "Year", y = "Water Level [ft]", 
+       title = "150 Years of Mono Lake (1850 - 2017)") +
+  theme_minimal()
+```
+
+This finalized graph shows the change in Mono Lake's water levels over time. Sections of the graph are shaded to highlight important historical changes in Mono Lake's water usage. The LA Aqueduct was completed in 1913 and after fully acquiring rights to the Mono Lake Basin water it began diverting water from the lake's source rivers in 1941. Water levels bounce back after Mono Lake Tufa State Reserve is created. Mandates stablished in 1994 require the lake to maintain an average water level of 6392 ft indicated on the graph by the dotted red line. When water levels are low enough land bridges appear that allow animals in otherwise separate habitats to interact.
+
+## Citations
+
+Data sourced from:
+https://www.monobasinresearch.org/
+
+Information about Mono Lake sourced from:
+https://www.monolake.org/about/story
+http://www.monolake.org/relicted/mltsroldchrono.htm

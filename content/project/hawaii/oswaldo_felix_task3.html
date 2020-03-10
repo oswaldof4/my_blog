@@ -1,0 +1,75 @@
+---
+title: "Hawaii spatial data exploration"
+author: "Oswaldo Felix"
+date: "2020-02-19"
+output: html_document
+tags:
+- spatial
+---
+
+
+
+<p>The Hawaiian Islands are home to a variety of different habitats. The big island is known to have 8 out of the 13 different climate zones. Making sure that anthropogenic land use is not adversely affecting the diverse landscape is important. This project seeks to visualize spatial data to observe overlap of land usage and important watersheds of the Hawaiian Islands.</p>
+<pre class="r"><code># Load libraries
+library(tidyverse)
+library(sf)
+library(here)
+
+# Read in data
+watershed_sf &lt;- read_sf(dsn = here::here(&quot;csv&quot;, &quot;watershed&quot;), layer = &quot;Watersheds&quot;) %&gt;% 
+  st_transform(crs = 4326)
+
+land_use_sf &lt;- read_sf(dsn = here::here(&quot;csv&quot;, &quot;land_use&quot;), layer =  &quot;Land_Use_Land_Cover_LULC&quot;) %&gt;% 
+  st_transform(crs = 4326) %&gt;% 
+  filter(landcover != 0) %&gt;% 
+  mutate(landuse = case_when(
+    landcover == &quot;Residential&quot; ~ &quot;Urban or Built-up land&quot;,
+    landcover == &quot;Commercial and Services&quot; ~ &quot;Urban or Built-up land&quot;,
+    landcover == &quot;Industrial&quot; ~ &quot;Urban or Built-up land&quot;,
+    landcover == &quot;Transportation, Communications and Utilities&quot; ~ &quot;Urban or Built-up land&quot;,
+    landcover == &quot;Industrial and Commercial Complexes&quot; ~ &quot;Urban or Built-up land&quot;,
+    landcover == &quot;Mixed Urban or Built-up Land&quot; ~ &quot;Urban or Built-up land&quot;,
+    landcover == &quot;Other Urban or Built-up Land&quot; ~ &quot;Urban or Built-up land&quot;,
+    landcover == &quot;Cropland and Pasture&quot; ~ &quot;Agricultural Land&quot;,
+    landcover == &quot;Orchards, Groves, Vineyards, Nurseries and Ornamental Horticultural Areas&quot; ~ &quot;Agricultural Land&quot;,
+    landcover == &quot;Confined Feeding Operations&quot; ~ &quot;Agricultural Land&quot;,
+    landcover == &quot;Other Agricultural Land&quot; ~ &quot;Agricultural Land&quot;,
+    landcover == &quot;Herbaceous Rangeland&quot; ~ &quot;Rangeland&quot;,
+    landcover == &quot;Shrub and Brush Rangeland&quot; ~ &quot;Rangeland&quot;,
+    landcover == &quot;Mixed Rangeland&quot; ~ &quot;Rangeland&quot;,
+    landcover == &quot;Deciduous Forest Land&quot; ~ &quot;Forest Land&quot;,
+    landcover == &quot;Evergreen Forest Land&quot; ~ &quot;Forest Land&quot;,
+    landcover == &quot;Mixed Forest Land&quot; ~ &quot;Forest Land&quot;,
+    landcover == &quot;Streams and Canals&quot; ~ &quot;Forest Land&quot;, # This is obviously not forest land, 
+    landcover == &quot;Lakes&quot; ~ &quot;Forest Land&quot;, #               but no water shows up on the map
+    landcover == &quot;Reservoirs&quot; ~ &quot;Forest Land&quot;, #          These were all changed to make
+    landcover == &quot;Bays and Estuaries&quot; ~ &quot;Forest Land&quot;, #    the legend on the map less cluttered
+    landcover == &quot;Forested Wetland&quot; ~ &quot;Forest Land&quot;, # ditto
+    landcover == &quot;Nonforested Wetland&quot; ~ &quot;Forest Land&quot;,# ditto
+    landcover == &quot;Dry Salt Flats&quot; ~ &quot;Barren Land&quot;,
+    landcover == &quot;Beaches&quot; ~ &quot;Barren Land&quot;,
+    landcover == &quot;Sandy Areas Other than Beaches&quot; ~ &quot;Barren Land&quot;,
+    landcover == &quot;Bare Exposed Rock&quot; ~ &quot;Barren Land&quot;,
+    landcover == &quot;Strip Mines, Quarries, and Gravel Pits&quot; ~ &quot;Barren Land&quot;,
+    landcover == &quot;Transitional Areas&quot; ~ &quot;Barren Land&quot;,
+    landcover == &quot;Mixed Barren Land&quot; ~ &quot;Barren Land&quot;
+  ))</code></pre>
+<p><strong>Citations:</strong></p>
+<p>Land Use Land Cover of main Hawaiian Islands as of 1976Source: 1:100,000 1976 Digital GIRAS (Geographic Information Retrieval and Analysis) files. For additional information, please refer to <a href="http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf" class="uri">http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf</a>
+Accessed online from: <a href="http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc" class="uri">http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc</a></p>
+<p>Surface Water Hyrdrologic Unit Boundaries (Watersheds) for the 8 major Hawaiian Islands. Source: GDSI, 1995, 1999; State of Hawaii Commission on Water Resource Management (CWRM), 2008. Provided to State GIS, August, 2017.
+Accessed online from: <a href="http://geoportal.hawaii.gov/datasets/watersheds" class="uri">http://geoportal.hawaii.gov/datasets/watersheds</a></p>
+<pre class="r"><code>my_map &lt;- ggplot() +
+  geom_sf(data = land_use_sf, show.legend = T,
+          aes(fill = landuse)) +
+  geom_sf(data = watershed_sf, alpha = 0.5, 
+          color = &quot;mintcream&quot;, fill = NA)+
+  coord_sf(xlim = c(-156.2, -154.7),
+           ylim = c(20.25, 18.9)) +
+  scale_fill_manual(values = c(&quot;#BEAED4&quot;, &quot;#FDC086&quot;, &quot;#FFFF99&quot;, &quot;#386CB0&quot;, &quot;#F0027F&quot;)) +
+  labs(title = &quot;Hawaii Island land use&quot;, fill = &quot;Regions&quot;) +
+  theme_minimal()
+
+my_map</code></pre>
+<p><img src="/project/hawaii/oswaldo_felix_task3_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
+<p>In this map, the white lines represent the extent of watersheds. Observing the north end of the island there is a concentration of agricultural land, but also defined very small watershed areas. These relatively small watershed areas could allow for easier runoff mitigation as accountability is not as diffuse if there was instead one large watershed. The color palette accentuates urban or built up land highlighting where city development has concentrated on the coast. Many of the small red spots scattered on the island are from industrial power plants. The watershed lines converge at the top of each of the two volcanoes. Mauna Kea is the barren land spot in the northern section of the island, while Mauna Loa is the barren spot in the southern section. Another interesting effect is the order in which land use areas appear as one moves away from the center of the volcanoes. Next to barren land there’s a high chance for rangle land to appear, followed by forests, and then agricultural land.</p>

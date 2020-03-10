@@ -1,0 +1,370 @@
+---
+title: "Spiny lobster abundance and size within Santa Barbara LTER"
+author: "Kat Leigh and Waldo Felix"
+date: "2019-11-15"
+output: html_document
+tags:
+- timeseries
+- statistical
+---
+
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<p><img src="https://cimioutdoored.org/ca-spiny-lobster/california-spiny-lobster/" /></p>
+<p>This report analyzes differences in the abundance and size of California Spiny Lobsters (Panulirus interruptus) observed at five locations along the Santa Barbara coastline by the Santa Barbara Coastal Long Term Ecological Research program (SBC LTER). Spiny lobsters play a critical predatory role in Southern California’s giant kelp forests, but are threatened by fishing pressure. The California Fish and Game’s Network of Marine Protected Areas (MPAs), Naples and Isla Vista, provide a refuge from fishing pressure and thus a unique oportunity to compare and contrast lobsters living in communities subject to and sheltered from fishing. To this end, this report examines:
+- A: changes in annual lobster abundance (counts) over time by site;
+- B: shifts in lobster size distributions between 2012 and 2018; and
+- C: differences between mean lobster sizes at MPA vs. non-MPA sites in 2012 and 2018.</p>
+<p>As a result of this examination, it was found that:
+- between MPA and non-MPA sites, there was a significant difference (p-value = 0.003) in lobster size in 2012, and a significant difference (p-value = 0.000003) in lobster size in 2018;
+- within MPA sites, there was a significant (p-value = 0.0004) mean size difference between lobsters observed in 2012 and 2018; and
+- within non-MPA sites, there was not a significant (p-value = 0.204) mean size difference in lobsters observed between 2012 and 2018.</p>
+<p>These findings provide insight into kelp forest management, indicating that MPAs could be effective at helping support healthy lobster populations.</p>
+<p>DATA AND METHODS:
+The data used in this report, from the SBC LTER’s two study reefs located in or near the Naples and Isla Vista MPAs, ranges from 2012 to present (2019). Observations were collected annually by divers in late summer before the start of the fishing season from two sites located within the MPAs and three located outside of the MPAs (Arroyo Quemado, Mohawk and Carpinteria). The dependent variables examined were time (the year of observation), and locaton (the site), and the independent variables examined were size (the carapace length in millimeters ) and count (the number of lobsters). Statistical difference was assessed using a two-sided t-test with a Welsh assumption, and a level of significance of 0.05. Analysis was performed using Rstudio software version 1.2.1335.</p>
+<pre class="r"><code># ----
+# run libraries and read data
+# ----
+
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(kableExtra)
+
+lobster_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;lobster_abundance_sbc_lter.csv&quot;), 
+                       na = &quot;-99999&quot;) %&gt;% 
+  clean_names()
+
+tidy_lob &lt;- lobster_df %&gt;% 
+  uncount(count)</code></pre>
+<div id="results-a" class="section level2">
+<h2>Results A:</h2>
+<p>Visually explore changes in annual lobster abundance (counts) by site. After grouping observations to find lobster counts for each year, create a finalized data visualization (no modeling/stats needed) showing changes in annual lobster abundance at the five sites over time.</p>
+<pre class="r"><code># ----
+# Data wrangling
+# ----
+
+lob_site_yr &lt;- tidy_lob %&gt;%
+  group_by(year) %&gt;% 
+  count(site) %&gt;% 
+  dplyr::mutate(
+    yr = dplyr::case_when(
+      year %in% &quot;2012&quot; ~ &quot;&#39;12&quot;,
+      year %in% &quot;2013&quot; ~ &quot;&#39;13&quot;,
+      year %in% &quot;2014&quot; ~ &quot;&#39;14&quot;,
+      year %in% &quot;2015&quot; ~ &quot;&#39;15&quot;,
+      year %in% &quot;2016&quot; ~ &quot;&#39;16&quot;,
+      year %in% &quot;2017&quot; ~ &quot;&#39;17&quot;,
+      year %in% &quot;2018&quot; ~ &quot;&#39;18&quot;,
+    )
+  )
+   
+
+# ----
+# Data plotting
+# ----
+  
+ggplot(data = lob_site_yr, aes(x = yr, y = n)) +
+  geom_col(aes(fill = site), show.legend = FALSE, 
+           color = &quot;black&quot;,  alpha = 0.8) +
+  scale_fill_brewer(palette = &quot;Pastel1&quot;) + # Chose this color palette to have color stand out
+  scale_y_continuous(expand = c(0,0)) + # Removed bottom space
+  labs(x = &quot;Year&quot;, y = &quot;Number of Lobsters&quot;, title = &quot;Number of Lobsters at Each Site from 2012-2018&quot;, fill = &quot;Site&quot;) +
+  theme_minimal() +
+  facet_wrap(~site, scales = &quot;free_x&quot;) +
+  theme(panel.spacing = unit(2, &quot;lines&quot;))</code></pre>
+<p><img src="/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Fig. 1: Lobster Abundance per site for years 2012-2018. Note that both sites Naples (NAPL) and Isla Vista (IVEE) are MPAs.</p>
+</div>
+<div id="results-b" class="section level2">
+<h2>Results B:</h2>
+<p>Visually explore lobster size distribution shifts by comparing lobster sizes in 2012 and 2018. Visually explore the size distributions for lobsters observed at the 5 different sites in 2012, and in 2018 (i.e. you will have a total of 10 size distributions shown: for each of the 5 sites, one for 2012 and one for 2018). Make a finalized graph that clearly and professionally shows community size distributions at each site in the 2 years, allowing the reader to easily interpret distribution shifts.</p>
+<pre class="r"><code># ----
+# Data wrangling
+# ----
+
+lob_size_yr &lt;- tidy_lob %&gt;% 
+  select(year, site, size_mm) %&gt;% 
+  filter(year == c(2012,2018))
+
+# ----
+# Data plotting
+# ----
+
+ggplot(lob_size_yr) +
+  # Made geom_violin with areas proportional to count
+  geom_violin(show.legend = FALSE, scale = &quot;count&quot;,
+              aes(x = site, y = size_mm, fill = site)) + 
+  scale_fill_brewer(palette = &quot;Pastel1&quot;) +
+  facet_wrap(~year) +
+  # Removed bottom space and showed full scale
+  scale_y_continuous(expand = c(0,0), limits = c(0,200)) + 
+  labs(y = &quot;Size [mm]&quot;, x = &quot;Site&quot;, caption = &quot;Area is proportional to count&quot;,
+       title = &quot;Lobster size distribution&quot;) +
+  theme_minimal()+
+  geom_vline(aes(xintercept = 5.6), color = &quot;black&quot;, linetype = 2, lwd=.5)+
+  annotate(geom = &quot;text&quot;,
+           x = 3,
+           y = 35,
+           label = &quot;*&quot;,
+           color = &quot;black&quot;,
+           size = 7)+
+  annotate(geom = &quot;text&quot;,
+           x = 5,
+           y = 35,
+           label = &quot;*&quot;,
+           color = &quot;black&quot;,
+           size = 7)</code></pre>
+<p><img src="/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Fig. 2: Distribution of lobster sizes for each site for years 2012 and 2018. Note that MPA sites Naples and Isla Vista are indicated with asterisks (*).</p>
+</div>
+<div id="results-c" class="section level2">
+<h2>Results C:</h2>
+<p>Compare mean lobster sizes at MPA vs. non-MPA sites in 2012 and 2018. Here, for each year (2012 and 2018) consolidate the size observations into only two groups: MPA and non-MPA lobsters. Then answer the following four questions:</p>
+<pre class="r"><code># ----
+# Data wrangling
+# ----
+
+lob_mpa &lt;- lob_size_yr %&gt;% 
+  filter(site %in% c(&quot;IVEE&quot;, &quot;NAPL&quot;)) 
+  
+lob_nmpa &lt;- lob_size_yr %&gt;% 
+  filter(site %in% c(&quot;AQUE&quot;, &quot;CARP&quot;, &quot;MOHK&quot;)) 
+
+# MPA 2012
+sample_mpa_12 &lt;- lob_mpa %&gt;%
+  filter(year == 2012) %&gt;% 
+  pull(size_mm)
+
+# Non-MPA 2012  
+sample_nmpa_12 &lt;- lob_nmpa %&gt;%
+  filter(year == 2012) %&gt;% 
+  pull(size_mm)
+
+# MPA 2018
+sample_mpa_18 &lt;- lob_mpa %&gt;% 
+  filter(year == 2018) %&gt;% 
+  pull(size_mm)
+
+# Non-MPA 2018
+sample_nmpa_18 &lt;- lob_nmpa %&gt;% 
+  filter(year == 2018) %&gt;% 
+  pull(size_mm)
+
+# 2012 observations mpa vs non-mpa   
+mn12_ttest &lt;- t.test(sample_mpa_12, sample_nmpa_12)
+mn12_ttest # sig diff</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_mpa_12 and sample_nmpa_12
+## t = -3.3723, df = 23.654, p-value = 0.002559
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -16.41918  -3.94582
+## sample estimates:
+## mean of x mean of y 
+##   65.6875   75.8700</code></pre>
+<p>When the lobster sizes observed in 2012 within the two MPA sites and within the three non-MPA sites are compared, it seems reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 10. A Welch Two Sample t-test with 23.65 degrees of freedom, and a t-statistic of -3.37 yeilded a p-value of 0.003 indicating that there is only a 0.3% chance that there is no difference between the observed sizes of lobsters within MPA sites and within non-MPA sites.</p>
+<pre class="r"><code># 2018 observations mpa vs non-mpa
+mn18_ttest &lt;- t.test(sample_mpa_18, sample_nmpa_18)
+mn18_ttest # sig diff</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_mpa_18 and sample_nmpa_18
+## t = 4.6828, df = 576.33, p-value = 3.532e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.250928 5.503165
+## sample estimates:
+## mean of x mean of y 
+##  77.79133  73.91429</code></pre>
+<p>Similar to that found in 2012, when the lobster sizes observed in 2018 within the two MPA sites and within the three non-MPA sites are compared, it seems reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 4. A Welch Two Sample t-test with 576.33 degrees of freedom, and a t-statistic of 4.68 yeilded a p-value of 0.000003 indicating that there is only a 0.0004% chance that there is no difference between the observed sizes of lobsters within MPA sites and within non-MPA sites.</p>
+<pre class="r"><code># MPA sites only
+mpa_ttest &lt;- t.test(sample_mpa_12, sample_mpa_18)
+mpa_ttest # sig diff</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_mpa_12 and sample_mpa_18
+## t = -4.4321, df = 15.993, p-value = 0.0004188
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -17.893355  -6.314309
+## sample estimates:
+## mean of x mean of y 
+##  65.68750  77.79133</code></pre>
+<p>When the lobster sizes observed in 2012 within the two MPA sites are compared to those observed in 2018, it seems reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 12. A Welch Two Sample t-test with 15.99 degrees of freedom, and a t-statistic of -4.43 yeilded a p-value of 410^{-4} indicating that there is only a 0.04% chance that there is no difference between the observed sizes of lobsters between years 2012 and 2018.</p>
+<pre class="r"><code># Non MPA sites only
+nmpa_ttest &lt;- t.test(sample_nmpa_12, sample_nmpa_18)
+nmpa_ttest #not sig diff.</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  sample_nmpa_12 and sample_nmpa_18
+## t = 1.2772, df = 148.66, p-value = 0.2035
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.070034  4.981462
+## sample estimates:
+## mean of x mean of y 
+##  75.87000  73.91429</code></pre>
+<p>When the lobster sizes observed in 2012 within the three non-MPA sites are compared to those observed in 2018, it is not reasonable to conclude that there is a significant difference between the two. The actual difference between the two means is 2. A Welch Two Sample t-test with 148.66 degrees of freedom, and a t-statistic of 1.28 yeilded a p-value of 0.204 indicating that there is a 20% chance that there is no difference between the observed sizes of lobsters between years 2012 and 2018. Since this is quite a high percentage, it is quite possible that the observed differences between the two groups are merely due to chance.</p>
+<pre class="r"><code># Means
+mean_mpa_2012 &lt;- mn12_ttest$estimate[1] 
+mean_nonmpa_2012 &lt;- mn12_ttest$estimate[2]
+mean_mpa_2018 &lt;- mn18_ttest$estimate[1] 
+mean_nonmpa_2018 &lt;- mn18_ttest$estimate[2] 
+# Calculate Standard Deviations
+sd_mpa_2012 &lt;- sd(sample_mpa_12[&quot;size&quot;], na.rm = TRUE) 
+sd_nonmpa_2012 &lt;- sd(sample_nmpa_12[&quot;size&quot;], na.rm = TRUE)
+sd_mpa_2018 &lt;- sd(sample_mpa_18[&quot;size&quot;], na.rm = TRUE)
+sd_nonmpa_2018 &lt;- sd(sample_nmpa_18[&quot;size&quot;], na.rm = TRUE)
+# Calculate Sample Sizes
+n_mpa_2012 &lt;- sum(!is.na(sample_mpa_12[&quot;size&quot;]))
+n_nonmpa_2012 &lt;- sum(!is.na(sample_nmpa_12[&quot;size&quot;]))
+n_mpa_2018 &lt;- sum(!is.na(sample_mpa_18[&quot;size&quot;]))
+n_nonmpa_2018 &lt;- sum(!is.na(sample_nmpa_18[&quot;size&quot;]))
+
+# Wrangle data for statistics summary table
+lobster_sum_tab &lt;- lob_size_yr %&gt;%
+  dplyr::mutate(
+    MPA_Status = dplyr::case_when(
+      site %in% &quot;AQUE&quot; ~ &quot;Non-MPA&quot;,
+      site %in% &quot;CARP&quot; ~ &quot;Non-MPA&quot;,
+      site %in% &quot;IVEE&quot; ~ &quot;MPA&quot;,
+      site %in% &quot;MOHK&quot; ~ &quot;Non-MPA&quot;,
+      site %in% &quot;NAPL&quot; ~ &quot;MPA&quot;
+      )
+    ) %&gt;% 
+group_by(MPA_Status, year) %&gt;%
+summarize(mean = mean(size_mm),
+          sd = sd(size_mm),
+          sample_size = n())
+
+lobster_sum_tab %&gt;%
+kable(col.names = c(&quot;MPA Status&quot;,
+                    &quot;Year&quot;,
+                    &quot;Mean Lobster Size [mm]&quot;,
+                    &quot;Standard Deviation&quot;,
+                    &quot;Size of Sample (Lobster Counts)&quot;),
+      caption = &quot;Table 1: Mean lobster size, standard deviation, and size of samples for MPA and non-MPA sites in 2012 and 2018.&quot;) %&gt;%
+kable_styling(bootstrap_options = &quot;striped&quot;,
+              full_width = F,
+              position = &quot;left&quot;
+              ) %&gt;%
+add_header_above(c(&quot;LOBSTER SIZE METRICS&quot; = 5))</code></pre>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-8">Table 1: </span>Table 1: Mean lobster size, standard deviation, and size of samples for MPA and non-MPA sites in 2012 and 2018.
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+LOBSTER SIZE METRICS
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+MPA Status
+</th>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Mean Lobster Size [mm]
+</th>
+<th style="text-align:right;">
+Standard Deviation
+</th>
+<th style="text-align:right;">
+Size of Sample (Lobster Counts)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+MPA
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:right;">
+65.68750
+</td>
+<td style="text-align:right;">
+10.75000
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPA
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+77.79133
+</td>
+<td style="text-align:right;">
+12.10836
+</td>
+<td style="text-align:right;">
+623
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Non-MPA
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:right;">
+75.87000
+</td>
+<td style="text-align:right;">
+13.76400
+</td>
+<td style="text-align:right;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Non-MPA
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+73.91429
+</td>
+<td style="text-align:right;">
+11.22656
+</td>
+<td style="text-align:right;">
+280
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>As noted earlier, MPA and non-MPA lobster sizes from 2012 were found to vary significantly from each other. MPA and non-MPA lobster sizes from 2018 were also found to vary signficantly. When lobster sizes in 2012 were compared to those in 2018 within the MPA sites, a significant difference was also found. Only a comparison of lobster sizes within the non-MPA sites between years 2012 and 2018 did not yeild a significant difference between the two groups. However, as seen in the table above, the sample size for the 2012 MPA lobsters was extremely small. Small sample sizes are more likely to inaacurately represent their true populations and thus, it is a bit risky to conclude there is a significant difference between the 2012 MPA and non-MPA lobsters. Ideally, more data would have been collected in 2012 to allow for a more robust comparison.
+Generally, these findings seem to indicate that the positive impacts of MPAs start to manifest over time, since in 2018 more lobsters were found in the MPA sites and these lobsters tended to also be of larger body size. However, data should be examined for 2019 and 2020 in order to see if this trend continues.</p>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Data:
+Reed D. 2019. SBC LTER: Reef: Abundance, size and fishing effort for California Spiny Lobster (Panulirus interruptus), ongoing since 2012. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/a593a675d644fdefb736750b291579a0" class="uri">https://doi.org/10.6073/pasta/a593a675d644fdefb736750b291579a0</a>. Dataset accessed 10/30/2019.</p>
+</div>
+</div>

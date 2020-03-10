@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spatial | Waldo&#39;s World</title>
+    <link>/tags/spatial/</link>
+      <atom:link href="/tags/spatial/index.xml" rel="self" type="application/rss+xml" />
+    <description>spatial</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>spatial</title>
+      <link>/tags/spatial/</link>
+    </image>
+    
+    <item>
+      <title>Hawaii spatial data exploration</title>
+      <link>/project/hawaii/oswaldo_felix_task3/</link>
+      <pubDate>Wed, 19 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/project/hawaii/oswaldo_felix_task3/</guid>
+      <description>
+
+
+&lt;p&gt;The Hawaiian Islands are home to a variety of different habitats. The big island is known to have 8 out of the 13 different climate zones. Making sure that anthropogenic land use is not adversely affecting the diverse landscape is important. This project seeks to visualize spatial data to observe overlap of land usage and important watersheds of the Hawaiian Islands.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries
+library(tidyverse)
+library(sf)
+library(here)
+
+# Read in data
+watershed_sf &amp;lt;- read_sf(dsn = here::here(&amp;quot;csv&amp;quot;, &amp;quot;watershed&amp;quot;), layer = &amp;quot;Watersheds&amp;quot;) %&amp;gt;% 
+  st_transform(crs = 4326)
+
+land_use_sf &amp;lt;- read_sf(dsn = here::here(&amp;quot;csv&amp;quot;, &amp;quot;land_use&amp;quot;), layer =  &amp;quot;Land_Use_Land_Cover_LULC&amp;quot;) %&amp;gt;% 
+  st_transform(crs = 4326) %&amp;gt;% 
+  filter(landcover != 0) %&amp;gt;% 
+  mutate(landuse = case_when(
+    landcover == &amp;quot;Residential&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Commercial and Services&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Industrial&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Transportation, Communications and Utilities&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Industrial and Commercial Complexes&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Mixed Urban or Built-up Land&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Other Urban or Built-up Land&amp;quot; ~ &amp;quot;Urban or Built-up land&amp;quot;,
+    landcover == &amp;quot;Cropland and Pasture&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Orchards, Groves, Vineyards, Nurseries and Ornamental Horticultural Areas&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Confined Feeding Operations&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Other Agricultural Land&amp;quot; ~ &amp;quot;Agricultural Land&amp;quot;,
+    landcover == &amp;quot;Herbaceous Rangeland&amp;quot; ~ &amp;quot;Rangeland&amp;quot;,
+    landcover == &amp;quot;Shrub and Brush Rangeland&amp;quot; ~ &amp;quot;Rangeland&amp;quot;,
+    landcover == &amp;quot;Mixed Rangeland&amp;quot; ~ &amp;quot;Rangeland&amp;quot;,
+    landcover == &amp;quot;Deciduous Forest Land&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,
+    landcover == &amp;quot;Evergreen Forest Land&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,
+    landcover == &amp;quot;Mixed Forest Land&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,
+    landcover == &amp;quot;Streams and Canals&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, # This is obviously not forest land, 
+    landcover == &amp;quot;Lakes&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, #               but no water shows up on the map
+    landcover == &amp;quot;Reservoirs&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, #          These were all changed to make
+    landcover == &amp;quot;Bays and Estuaries&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, #    the legend on the map less cluttered
+    landcover == &amp;quot;Forested Wetland&amp;quot; ~ &amp;quot;Forest Land&amp;quot;, # ditto
+    landcover == &amp;quot;Nonforested Wetland&amp;quot; ~ &amp;quot;Forest Land&amp;quot;,# ditto
+    landcover == &amp;quot;Dry Salt Flats&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Beaches&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Sandy Areas Other than Beaches&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Bare Exposed Rock&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Strip Mines, Quarries, and Gravel Pits&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Transitional Areas&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
+    landcover == &amp;quot;Mixed Barren Land&amp;quot; ~ &amp;quot;Barren Land&amp;quot;
+  ))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Citations:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Land Use Land Cover of main Hawaiian Islands as of 1976Source: 1:100,000 1976 Digital GIRAS (Geographic Information Retrieval and Analysis) files. For additional information, please refer to &lt;a href=&#34;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&#34; class=&#34;uri&#34;&gt;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&lt;/a&gt;
+Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Surface Water Hyrdrologic Unit Boundaries (Watersheds) for the 8 major Hawaiian Islands. Source: GDSI, 1995, 1999; State of Hawaii Commission on Water Resource Management (CWRM), 2008. Provided to State GIS, August, 2017.
+Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/watersheds&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/watersheds&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;my_map &amp;lt;- ggplot() +
+  geom_sf(data = land_use_sf, show.legend = T,
+          aes(fill = landuse)) +
+  geom_sf(data = watershed_sf, alpha = 0.5, 
+          color = &amp;quot;mintcream&amp;quot;, fill = NA)+
+  coord_sf(xlim = c(-156.2, -154.7),
+           ylim = c(20.25, 18.9)) +
+  scale_fill_manual(values = c(&amp;quot;#BEAED4&amp;quot;, &amp;quot;#FDC086&amp;quot;, &amp;quot;#FFFF99&amp;quot;, &amp;quot;#386CB0&amp;quot;, &amp;quot;#F0027F&amp;quot;)) +
+  labs(title = &amp;quot;Hawaii Island land use&amp;quot;, fill = &amp;quot;Regions&amp;quot;) +
+  theme_minimal()
+
+my_map&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/hawaii/oswaldo_felix_task3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In this map, the white lines represent the extent of watersheds. Observing the north end of the island there is a concentration of agricultural land, but also defined very small watershed areas. These relatively small watershed areas could allow for easier runoff mitigation as accountability is not as diffuse if there was instead one large watershed. The color palette accentuates urban or built up land highlighting where city development has concentrated on the coast. Many of the small red spots scattered on the island are from industrial power plants. The watershed lines converge at the top of each of the two volcanoes. Mauna Kea is the barren land spot in the northern section of the island, while Mauna Loa is the barren spot in the southern section. Another interesting effect is the order in which land use areas appear as one moves away from the center of the volcanoes. Next to barren land there’s a high chance for rangle land to appear, followed by forests, and then agricultural land.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,87 @@
+---
+title: "Hawaii spatial data exploration"
+author: "Oswaldo Felix"
+date: "2020-02-19"
+output: html_document
+tags:
+- spatial
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, message = FALSE, warning = FALSE)
+```
+
+The Hawaiian Islands are home to a variety of different habitats. The big island is known to have 8 out of the 13 different climate zones. Making sure that anthropogenic land use is not adversely affecting the diverse landscape is important. This project seeks to visualize spatial data to observe overlap of land usage and important watersheds of the Hawaiian Islands.
+
+```{r}
+# Load libraries
+library(tidyverse)
+library(sf)
+library(here)
+
+# Read in data
+watershed_sf <- read_sf(dsn = here::here("csv", "watershed"), layer = "Watersheds") %>% 
+  st_transform(crs = 4326)
+
+land_use_sf <- read_sf(dsn = here::here("csv", "land_use"), layer =  "Land_Use_Land_Cover_LULC") %>% 
+  st_transform(crs = 4326) %>% 
+  filter(landcover != 0) %>% 
+  mutate(landuse = case_when(
+    landcover == "Residential" ~ "Urban or Built-up land",
+    landcover == "Commercial and Services" ~ "Urban or Built-up land",
+    landcover == "Industrial" ~ "Urban or Built-up land",
+    landcover == "Transportation, Communications and Utilities" ~ "Urban or Built-up land",
+    landcover == "Industrial and Commercial Complexes" ~ "Urban or Built-up land",
+    landcover == "Mixed Urban or Built-up Land" ~ "Urban or Built-up land",
+    landcover == "Other Urban or Built-up Land" ~ "Urban or Built-up land",
+    landcover == "Cropland and Pasture" ~ "Agricultural Land",
+    landcover == "Orchards, Groves, Vineyards, Nurseries and Ornamental Horticultural Areas" ~ "Agricultural Land",
+    landcover == "Confined Feeding Operations" ~ "Agricultural Land",
+    landcover == "Other Agricultural Land" ~ "Agricultural Land",
+    landcover == "Herbaceous Rangeland" ~ "Rangeland",
+    landcover == "Shrub and Brush Rangeland" ~ "Rangeland",
+    landcover == "Mixed Rangeland" ~ "Rangeland",
+    landcover == "Deciduous Forest Land" ~ "Forest Land",
+    landcover == "Evergreen Forest Land" ~ "Forest Land",
+    landcover == "Mixed Forest Land" ~ "Forest Land",
+    landcover == "Streams and Canals" ~ "Forest Land", # This is obviously not forest land, 
+    landcover == "Lakes" ~ "Forest Land", #               but no water shows up on the map
+    landcover == "Reservoirs" ~ "Forest Land", #          These were all changed to make
+    landcover == "Bays and Estuaries" ~ "Forest Land", #    the legend on the map less cluttered
+    landcover == "Forested Wetland" ~ "Forest Land", # ditto
+    landcover == "Nonforested Wetland" ~ "Forest Land",# ditto
+    landcover == "Dry Salt Flats" ~ "Barren Land",
+    landcover == "Beaches" ~ "Barren Land",
+    landcover == "Sandy Areas Other than Beaches" ~ "Barren Land",
+    landcover == "Bare Exposed Rock" ~ "Barren Land",
+    landcover == "Strip Mines, Quarries, and Gravel Pits" ~ "Barren Land",
+    landcover == "Transitional Areas" ~ "Barren Land",
+    landcover == "Mixed Barren Land" ~ "Barren Land"
+  ))
+```
+
+
+**Citations:**
+
+Land Use Land Cover of main Hawaiian Islands as of 1976Source: 1:100,000 1976 Digital GIRAS (Geographic Information Retrieval and Analysis) files. For additional information, please refer to http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf
+Accessed online from: http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc
+
+Surface Water Hyrdrologic Unit Boundaries (Watersheds) for the 8 major Hawaiian Islands. Source: GDSI, 1995, 1999; State of Hawaii Commission on Water Resource Management (CWRM), 2008. Provided to State GIS, August, 2017. 
+Accessed online from: http://geoportal.hawaii.gov/datasets/watersheds
+
+```{r, fig.width = 10, fig.height = 6}
+my_map <- ggplot() +
+  geom_sf(data = land_use_sf, show.legend = T,
+          aes(fill = landuse)) +
+  geom_sf(data = watershed_sf, alpha = 0.5, 
+          color = "mintcream", fill = NA)+
+  coord_sf(xlim = c(-156.2, -154.7),
+           ylim = c(20.25, 18.9)) +
+  scale_fill_manual(values = c("#BEAED4", "#FDC086", "#FFFF99", "#386CB0", "#F0027F")) +
+  labs(title = "Hawaii Island land use", fill = "Regions") +
+  theme_minimal()
+
+my_map
+```
+
+In this map, the white lines represent the extent of watersheds. Observing the north end of the island there is a concentration of agricultural land, but also defined very small watershed areas. These relatively small watershed areas could allow for easier runoff mitigation as accountability is not as diffuse if there was instead one large watershed. The color palette accentuates urban or built up land highlighting where city development has concentrated on the coast. Many of the small red spots scattered on the island are from industrial power plants. The watershed lines converge at the top of each of the two volcanoes. Mauna Kea is the barren land spot in the northern section of the island, while Mauna Loa is the barren spot in the southern section. Another interesting effect is the order in which land use areas appear as one moves away from the center of the volcanoes. Next to barren land there's a high chance for rangle land to appear, followed by forests, and then agricultural land.    

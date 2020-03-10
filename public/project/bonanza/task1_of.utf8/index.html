@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Oswaldo Felix">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Snowshoe hares are an important prey species. This project uses recordings from a catch and release operation over a 13 year time span to infer population dynamics. Using the dataset, the project explores year-to-year weight discrepancies among hares caught in warm months vs cold months.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/project/bonanza/task1_of.utf8/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/project/bonanza/task1_of.utf8/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@ozziedudias">
+  <meta property="twitter:creator" content="@ozziedudias">
+  
+  <meta property="og:site_name" content="Waldo&#39;s World">
+  <meta property="og:url" content="/project/bonanza/task1_of.utf8/">
+  <meta property="og:title" content="Bonanza Creek Snowshoe Study | Waldo&#39;s World">
+  <meta property="og:description" content="Snowshoe hares are an important prey species. This project uses recordings from a catch and release operation over a 13 year time span to infer population dynamics. Using the dataset, the project explores year-to-year weight discrepancies among hares caught in warm months vs cold months."><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+    
+  
+
+  
+
+
+    
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/project/bonanza/task1_of.utf8/"
+  },
+  "headline": "Bonanza Creek Snowshoe Study",
+  
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Oswaldo Felix"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Waldo's World",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Snowshoe hares are an important prey species. This project uses recordings from a catch and release operation over a 13 year time span to infer population dynamics. Using the dataset, the project explores year-to-year weight discrepancies among hares caught in warm months vs cold months."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Bonanza Creek Snowshoe Study | Waldo&#39;s World</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Waldo&#39;s World</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Waldo&#39;s World</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/cv.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article article-project">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Bonanza Creek Snowshoe Study</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jan 1, 0001
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><img src="https://cottagelife.com/wp-content/uploads/2019/01/shutterstock_519516277.jpg" alt=""></p>
+<p>Snowshoe hares are an important prey species. This project uses recordings from a catch and release operation over a 13 year time span to infer population dynamics. Using the dataset, the project explores year-to-year weight discrepancies among hares caught in warm months vs cold months. Ultimately, seasonal weight variations follow expected weight variations, but lack an annual trend.</p>
+<pre><code class="language-r"># Load libraries and data
+
+library(tidyverse)
+library(here)
+library(lubridate)
+library(kableExtra)
+
+hare_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;showshoe_lter.csv&quot;))
+
+# Wrangle data
+hare_select &lt;- hare_df %&gt;% 
+  select(-time, -notes) %&gt;% 
+  mutate(date = mdy(date),
+         year = lubridate::year(date),
+         month = lubridate::month(date),
+         day = lubridate::day(date)
+          ) %&gt;% 
+  mutate(age = case_when(age %in% c(&quot;J&quot;, &quot;j&quot;, &quot;J 3/4&quot;) ~ &quot;Juvenile&quot;,
+                         age %in% c(&quot;A&quot;, &quot;a 1 yr.&quot;, &quot;a 3/4 yr.&quot;, &quot;a 1 yr&quot;, 
+                                    &quot;1 yr.&quot;, &quot;2 yrs.&quot;, &quot;a 2 yrs.&quot;, &quot;2.25 yrs&quot;, 
+                                    &quot;3.5 yrs.&quot;, &quot;1 yr&quot;, &quot;2 yrs&quot;, &quot;a&quot;, &quot;1&quot;, &quot;1.25&quot;, 
+                                    &quot;1.5&quot;, &quot;A 3/4&quot;, &quot;A 1/2&quot;, &quot;3 yrs.&quot;, &quot;2.5 yrs&quot;,
+                                    &quot;3.25 yrs.&quot;, &quot;A 1.5&quot;, &quot;NA&quot;, &quot;u&quot;, &quot;?&quot;, &quot;U&quot;, &quot;3/4/13&quot;, 
+                                    &quot;1/4/13&quot;, &quot;1/2/13&quot;) ~ &quot;Adult&quot;)
+  ) %&gt;%
+  mutate(season = case_when(month %in% c(4:9) ~ &quot;Summer&quot;,
+                            month %in% c(1:3, 10:12) ~ &quot;Winter&quot;
+                            )
+  )
+</code></pre>
+<pre><code class="language-r"># Visualize data
+ggplot(data = hare_select, aes(x = year, y = weight)) +
+  geom_boxplot(aes(group = year,  y = weight), color = &quot;wheat4&quot;,
+               alpha = 0.8, outlier.shape = NA, varwidth = TRUE) +
+  geom_jitter(aes(pch = age, color = season), 
+             alpha = 0.6, width = 0.2, na.rm = FALSE) +
+  facet_wrap(~season) +
+  guides(color = FALSE) +
+  labs(pch = &quot;Age&quot;, x = &quot;Year&quot;, y = &quot;Weight [g]&quot;,
+       title = &quot;Snowshoe hare annual weight&quot;) +
+  theme_bw()
+</code></pre>
+<p><img src="task1_of_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
+<p><strong>Figure 1.</strong> <em>Summer months have a wide range of weight values due to the abundance of smaller juveniles during birthing months. Nearly any hare below 1000 grams was a juvenile. The width of the boxplot shows the relative strength of its median estimate.</em></p>
+<p><strong>Note:</strong> <em>Some entries for age where logged with a different method and have been omitted as NA&rsquo;s</em></p>
+<p>Below is a table of summary statistics for years and seasons with a large sample size (n &gt; 100).</p>
+<h2 id="raw-data-summary">Raw data summary</h2>
+<pre><code class="language-r"># Display table
+
+kable(hare_table) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;basic&quot;, &quot;hover&quot;)) %&gt;% 
+  row_spec(c(1,3,5:7,9,11:13,15), color = &quot;red&quot;) %&gt;% 
+  row_spec(c(2,4,6,8,10,14), bold = TRUE, color = &quot;skyblue&quot;)
+</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Year </th>
+   <th style="text-align:left;"> Season </th>
+   <th style="text-align:right;"> Sample Size </th>
+   <th style="text-align:right;"> Mean Weight [g] </th>
+   <th style="text-align:right;"> Standard Error </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 1999 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 279 </td>
+   <td style="text-align:right;color: red !important;"> 1157.264 </td>
+   <td style="text-align:right;color: red !important;"> 22.55149 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 1999 </td>
+   <td style="text-align:left;font-weight: bold;color: skyblue !important;"> Winter </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 113 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 1520.895 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 28.52836 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2000 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 126 </td>
+   <td style="text-align:right;color: red !important;"> 1208.000 </td>
+   <td style="text-align:right;color: red !important;"> 39.41050 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 2000 </td>
+   <td style="text-align:left;font-weight: bold;color: skyblue !important;"> Winter </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 134 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 1579.327 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 18.41564 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2005 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 113 </td>
+   <td style="text-align:right;color: red !important;"> 1124.779 </td>
+   <td style="text-align:right;color: red !important;"> 41.53135 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;"> 2006 </td>
+   <td style="text-align:left;color: red !important;font-weight: bold;color: skyblue !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;"> 161 </td>
+   <td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;"> 1314.767 </td>
+   <td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;"> 25.26331 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2007 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 102 </td>
+   <td style="text-align:right;color: red !important;"> 1232.800 </td>
+   <td style="text-align:right;color: red !important;"> 40.41503 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 2007 </td>
+   <td style="text-align:left;font-weight: bold;color: skyblue !important;"> Winter </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 101 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 1519.468 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 16.78159 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2008 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 223 </td>
+   <td style="text-align:right;color: red !important;"> 1219.976 </td>
+   <td style="text-align:right;color: red !important;"> 29.81252 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 2008 </td>
+   <td style="text-align:left;font-weight: bold;color: skyblue !important;"> Winter </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 128 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 1499.735 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 14.61380 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2009 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 441 </td>
+   <td style="text-align:right;color: red !important;"> 1322.673 </td>
+   <td style="text-align:right;color: red !important;"> 13.22504 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2010 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 332 </td>
+   <td style="text-align:right;color: red !important;"> 1376.043 </td>
+   <td style="text-align:right;color: red !important;"> 14.28255 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2011 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 300 </td>
+   <td style="text-align:right;color: red !important;"> 1355.734 </td>
+   <td style="text-align:right;color: red !important;"> 16.83613 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 2011 </td>
+   <td style="text-align:left;font-weight: bold;color: skyblue !important;"> Winter </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 127 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 1526.221 </td>
+   <td style="text-align:right;font-weight: bold;color: skyblue !important;"> 15.57690 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;color: red !important;"> 2012 </td>
+   <td style="text-align:left;color: red !important;"> Summer </td>
+   <td style="text-align:right;color: red !important;"> 120 </td>
+   <td style="text-align:right;color: red !important;"> 1314.815 </td>
+   <td style="text-align:right;color: red !important;"> 21.91087 </td>
+  </tr>
+</tbody>
+</table>
+<p><strong>Figure 2.</strong> <em>Winter months consistently have the highest average weight. Extra grams of fat help keep the hare warm, and most hares are adults. Summer sample sizes may be larger due to added abundance of juveniles.</em></p>
+<p><strong>Note:</strong> <em>This data includes information from hares not plotted on the previous graph (age = NA).</em></p>
+<h3 id="citations">Citations</h3>
+<p>Data from: Kielland K., F. S. Chapin, R. W. Ruess. 2017. Snowshoe hare physical data in Bonanza Creek Experimental Forest: 1999-Present. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14">https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14</a>.</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/project/bonanza/task1_of.utf8/&amp;text=Bonanza%20Creek%20Snowshoe%20Study" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/project/bonanza/task1_of.utf8/&amp;t=Bonanza%20Creek%20Snowshoe%20Study" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Bonanza%20Creek%20Snowshoe%20Study&amp;body=/project/bonanza/task1_of.utf8/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/project/bonanza/task1_of.utf8/&amp;title=Bonanza%20Creek%20Snowshoe%20Study" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Bonanza%20Creek%20Snowshoe%20Study%20/project/bonanza/task1_of.utf8/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/project/bonanza/task1_of.utf8/&amp;title=Bonanza%20Creek%20Snowshoe%20Study" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <img class="avatar mr-3 avatar-circle" src="/authors/admin/avatar_huf5aa60df05f8c99cfcc01f68734e0eaa_4510707_270x270_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Oswaldo Felix</a></h5>
+      <h6 class="card-subtitle">MESM Class of 2021</h6>
+      <p class="card-text">My research interests include climate and energy, data science, and entrepreneurship.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/ozziedudias" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/oswaldof4" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+    <div class="project-related-pages content-widget-hr">
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+    </div>
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

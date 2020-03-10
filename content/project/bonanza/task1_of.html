@@ -1,0 +1,351 @@
+---
+title: "Bonanza Creek Snowshoe Study"
+author: "Oswaldo Felix"
+date: "2020-02-01"
+output: html_document
+tags:
+- timeseries
+---
+
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<p><img src="https://cottagelife.com/wp-content/uploads/2019/01/shutterstock_519516277.jpg" /></p>
+<p>Snowshoe hares are an important prey species. This project uses recordings from a catch and release operation over a 13 year time span to infer population dynamics. Using the dataset, the project explores year-to-year weight discrepancies among hares caught in warm months vs cold months. Ultimately, seasonal weight variations follow expected weight variations, but lack an annual trend.</p>
+<pre class="r"><code># Load libraries and data
+
+library(tidyverse)
+library(here)
+library(lubridate)
+library(kableExtra)
+
+hare_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;showshoe_lter.csv&quot;))
+
+# Wrangle data
+hare_select &lt;- hare_df %&gt;% 
+  select(-time, -notes) %&gt;% 
+  mutate(date = mdy(date),
+         year = lubridate::year(date),
+         month = lubridate::month(date),
+         day = lubridate::day(date)
+          ) %&gt;% 
+  mutate(age = case_when(age %in% c(&quot;J&quot;, &quot;j&quot;, &quot;J 3/4&quot;) ~ &quot;Juvenile&quot;,
+                         age %in% c(&quot;A&quot;, &quot;a 1 yr.&quot;, &quot;a 3/4 yr.&quot;, &quot;a 1 yr&quot;, 
+                                    &quot;1 yr.&quot;, &quot;2 yrs.&quot;, &quot;a 2 yrs.&quot;, &quot;2.25 yrs&quot;, 
+                                    &quot;3.5 yrs.&quot;, &quot;1 yr&quot;, &quot;2 yrs&quot;, &quot;a&quot;, &quot;1&quot;, &quot;1.25&quot;, 
+                                    &quot;1.5&quot;, &quot;A 3/4&quot;, &quot;A 1/2&quot;, &quot;3 yrs.&quot;, &quot;2.5 yrs&quot;,
+                                    &quot;3.25 yrs.&quot;, &quot;A 1.5&quot;, &quot;NA&quot;, &quot;u&quot;, &quot;?&quot;, &quot;U&quot;, &quot;3/4/13&quot;, 
+                                    &quot;1/4/13&quot;, &quot;1/2/13&quot;) ~ &quot;Adult&quot;)
+  ) %&gt;%
+  mutate(season = case_when(month %in% c(4:9) ~ &quot;Summer&quot;,
+                            month %in% c(1:3, 10:12) ~ &quot;Winter&quot;
+                            )
+  )</code></pre>
+<pre class="r"><code># Visualize data
+ggplot(data = hare_select, aes(x = year, y = weight)) +
+  geom_boxplot(aes(group = year,  y = weight), color = &quot;wheat4&quot;,
+               alpha = 0.8, outlier.shape = NA, varwidth = TRUE) +
+  geom_jitter(aes(pch = age, color = season), 
+             alpha = 0.6, width = 0.2, na.rm = FALSE) +
+  facet_wrap(~season) +
+  guides(color = FALSE) +
+  labs(pch = &quot;Age&quot;, x = &quot;Year&quot;, y = &quot;Weight [g]&quot;,
+       title = &quot;Snowshoe hare annual weight&quot;) +
+  theme_bw()</code></pre>
+<p><img src="/project/bonanza/task1_of_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
+<p><strong>Figure 1.</strong> <em>Summer months have a wide range of weight values due to the abundance of smaller juveniles during birthing months. Nearly any hare below 1000 grams was a juvenile. The width of the boxplot shows the relative strength of its median estimate.</em></p>
+<p><strong>Note:</strong> <em>Some entries for age where logged with a different method and have been omitted as NA’s</em></p>
+<p>Below is a table of summary statistics for years and seasons with a large sample size (n &gt; 100).</p>
+<div id="raw-data-summary" class="section level2">
+<h2>Raw data summary</h2>
+<pre class="r"><code># Display table
+
+kable(hare_table) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;basic&quot;, &quot;hover&quot;)) %&gt;% 
+  row_spec(c(1,3,5:7,9,11:13,15), color = &quot;red&quot;) %&gt;% 
+  row_spec(c(2,4,6,8,10,14), bold = TRUE, color = &quot;skyblue&quot;)</code></pre>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:left;">
+Season
+</th>
+<th style="text-align:right;">
+Sample Size
+</th>
+<th style="text-align:right;">
+Mean Weight [g]
+</th>
+<th style="text-align:right;">
+Standard Error
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;color: red !important;">
+1999
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+279
+</td>
+<td style="text-align:right;color: red !important;">
+1157.264
+</td>
+<td style="text-align:right;color: red !important;">
+22.55149
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+1999
+</td>
+<td style="text-align:left;font-weight: bold;color: skyblue !important;">
+Winter
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+113
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+1520.895
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+28.52836
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2000
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+126
+</td>
+<td style="text-align:right;color: red !important;">
+1208.000
+</td>
+<td style="text-align:right;color: red !important;">
+39.41050
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+2000
+</td>
+<td style="text-align:left;font-weight: bold;color: skyblue !important;">
+Winter
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+134
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+1579.327
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+18.41564
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2005
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+113
+</td>
+<td style="text-align:right;color: red !important;">
+1124.779
+</td>
+<td style="text-align:right;color: red !important;">
+41.53135
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;">
+2006
+</td>
+<td style="text-align:left;color: red !important;font-weight: bold;color: skyblue !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;">
+161
+</td>
+<td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;">
+1314.767
+</td>
+<td style="text-align:right;color: red !important;font-weight: bold;color: skyblue !important;">
+25.26331
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2007
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+102
+</td>
+<td style="text-align:right;color: red !important;">
+1232.800
+</td>
+<td style="text-align:right;color: red !important;">
+40.41503
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+2007
+</td>
+<td style="text-align:left;font-weight: bold;color: skyblue !important;">
+Winter
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+101
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+1519.468
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+16.78159
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2008
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+223
+</td>
+<td style="text-align:right;color: red !important;">
+1219.976
+</td>
+<td style="text-align:right;color: red !important;">
+29.81252
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+2008
+</td>
+<td style="text-align:left;font-weight: bold;color: skyblue !important;">
+Winter
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+128
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+1499.735
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+14.61380
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2009
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+441
+</td>
+<td style="text-align:right;color: red !important;">
+1322.673
+</td>
+<td style="text-align:right;color: red !important;">
+13.22504
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2010
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+332
+</td>
+<td style="text-align:right;color: red !important;">
+1376.043
+</td>
+<td style="text-align:right;color: red !important;">
+14.28255
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2011
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+300
+</td>
+<td style="text-align:right;color: red !important;">
+1355.734
+</td>
+<td style="text-align:right;color: red !important;">
+16.83613
+</td>
+</tr>
+<tr>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+2011
+</td>
+<td style="text-align:left;font-weight: bold;color: skyblue !important;">
+Winter
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+127
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+1526.221
+</td>
+<td style="text-align:right;font-weight: bold;color: skyblue !important;">
+15.57690
+</td>
+</tr>
+<tr>
+<td style="text-align:right;color: red !important;">
+2012
+</td>
+<td style="text-align:left;color: red !important;">
+Summer
+</td>
+<td style="text-align:right;color: red !important;">
+120
+</td>
+<td style="text-align:right;color: red !important;">
+1314.815
+</td>
+<td style="text-align:right;color: red !important;">
+21.91087
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Figure 2.</strong> <em>Winter months consistently have the highest average weight. Extra grams of fat help keep the hare warm, and most hares are adults. Summer sample sizes may be larger due to added abundance of juveniles.</em></p>
+<p><strong>Note:</strong> <em>This data includes information from hares not plotted on the previous graph (age = NA).</em></p>
+<div id="citations" class="section level3">
+<h3>Citations</h3>
+<p>Data from: Kielland K., F. S. Chapin, R. W. Ruess. 2017. Snowshoe hare physical data in Bonanza Creek Experimental Forest: 1999-Present. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14" class="uri">https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14</a>.</p>
+</div>
+</div>
