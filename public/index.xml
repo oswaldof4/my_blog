@@ -152,6 +152,69 @@ Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/water
     </item>
     
     <item>
+      <title>PCA Analysis Cropland Cover</title>
+      <link>/project/first_pca/</link>
+      <pubDate>Wed, 05 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/project/first_pca/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries
+
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggfortify)
+
+# Read data
+
+world_df &amp;lt;- read_csv(here::here(&amp;quot;csv&amp;quot;, &amp;quot;world_env_vars.csv&amp;quot;)) %&amp;gt;% 
+  clean_names() %&amp;gt;%
+  rename(&amp;quot;rain_seasonality&amp;quot; = &amp;quot;rain_seasonailty&amp;quot;) %&amp;gt;% 
+  select(-country:-slope, -isothermality, -wind, -cloudiness,
+         -contains(&amp;quot;range&amp;quot;), - contains(&amp;quot;seasonality&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create subset
+
+world_subset &amp;lt;- world_df %&amp;gt;% 
+  drop_na()
+
+my_world_pca &amp;lt;- prcomp(world_subset, scale = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.&lt;/p&gt;
+&lt;div id=&#34;pca-biplot&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;PCA Biplot&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Generate biplot
+
+my_biplot &amp;lt;- autoplot(my_world_pca,
+                      colour = NA,
+                      loadings.label = TRUE,
+                      loadings.label.size = 3,
+                      loadings.label.colour = &amp;quot;black&amp;quot;,
+                      loadings.label.repel = TRUE) +
+  scale_x_continuous(limits = c(-0.15, 0.15)) +
+  theme_light()
+
+my_biplot&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/project/first_pca/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Figure 1.&lt;/strong&gt; &lt;em&gt;All variables show some negative correlation (angle &amp;gt; 90) with cropland cover&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Takeaways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Cropland cover is strongly inversely correlated with cold temperature statistics&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Cropland cover is also inversely correlated with large amounts of rain, but not as strongly as the relationship seen with cold temperatures&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Tree canopy cover positively correlates with rain statistics&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Rain and temperature statistics correlate within respective categories&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;citations&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Citations&lt;/h3&gt;
+&lt;p&gt;The data was compiled by &lt;span class=&#34;citation&#34;&gt;@zander_venter&lt;/span&gt; on Kaggle and originates from the &lt;a href=&#34;https://earthengine.google.com/&#34;&gt;Google Earth Engine&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Bonanza Creek Snowshoe Study</title>
       <link>/project/bonanza/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>

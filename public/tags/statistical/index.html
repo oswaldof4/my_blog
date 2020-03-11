@@ -239,7 +239,7 @@
   <meta property="og:description" content="MESM Class of 2021"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2019-11-15T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2020-02-05T00:00:00&#43;00:00">
   
 
   
@@ -560,6 +560,18 @@
   
 
   
+  
+    
+    
+    
+    <div>
+      <h2><a href="/project/first_pca/" >PCA Analysis Cropland Cover</a></h2>
+      <div class="article-style">
+        
+          # Load librarieslibrary(tidyverse)library(here)library(janitor)library(ggfortify)# Read dataworld_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;world_env_vars.csv&quot;)) %&gt;% clean_names() %&gt;%rename(&quot;rain_seasonality&quot; = &quot;rain_seasonailty&quot;) %&gt;% select(-country:-slope, -isothermality, -wind, -cloudiness,-contains(&quot;range&quot;), - contains(&quot;seasonality&quot;))# Create subsetworld_subset &lt;- world_df %&gt;% drop_na()my_world_pca &lt;- prcomp(world_subset, scale = TRUE)IntroductionPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset.
+        
+      </div>
+    </div>
   
     
     

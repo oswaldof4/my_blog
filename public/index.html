@@ -1177,9 +1177,29 @@
     
     
       <div class="card experience course">
+        <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Highlighted Masters Coursework</h4><div class="card-subtitle my-0 article-metadata"><a href="https://www.bren.ucsb.edu/" target="_blank" rel="noopener">Bren School of Environmental Science &amp; Management</a><span class="middot-divider"></span>
+
+            Sep 2019
+            
+          </div>
+
+          
+            <div class="card-text"><ul>
+<li>Introduction to environmental data analysis &amp; stats in R - Professor Allison Horst</li>
+<li>Advanced methods for environmental data analysis in R - Professor Allison Horst</li>
+</ul></div>
+          
+
+          
+        </div>
+      </div>
+    
+      <div class="card experience course">
         <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Carbon Accounting with Second Price Auctioning</h4><div class="card-subtitle my-0 article-metadata"><a href="https://chinaproject.harvard.edu/" target="_blank" rel="noopener">Harvard-China Project</a><span class="middot-divider"></span>
 
-            Oct 2018
+            Aug 2018
+            
+            – Aug 2018
             
           </div>
 
@@ -1192,39 +1212,22 @@
       </div>
     
       <div class="card experience course">
-        <div class="card-body"><a href="https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals" target="_blank" rel="noopener"><h4 class="card-title exp-title text-muted my-0">Blockchain Fundamentals</h4></a><div class="card-subtitle my-0 article-metadata"><a href="https://www.edx.org" target="_blank" rel="noopener">edX</a><span class="middot-divider"></span>
+        <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Highlighted Undergraduate Coursework</h4><div class="card-subtitle my-0 article-metadata"><a href="https://www.harvard.edu" target="_blank" rel="noopener">Harvard University</a><span class="middot-divider"></span>
 
-            Mar 2018
+            Jan 2017
+            
+            – Jan 2018
             
           </div>
 
           
-            <div class="card-text">Formulated informed blockchain models, hypotheses, and use cases.</div>
+            <div class="card-text"><ul>
+<li>Technology, Environment, and Society - Professor Sheila Jasanoff</li>
+<li>Fundamentals of Environmental Economics and Policy - Professor Robert Stavins</li>
+<li>The Tecnology, Economics, and Public Policy of Renewable Energy - Professor George Baker</li>
+</ul></div>
           
 
-          
-            <a class="card-link" href="https://www.edx.org" target="_blank" rel="noopener">
-              See certificate
-            </a>
-          
-        </div>
-      </div>
-    
-      <div class="card experience course">
-        <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Object-Oriented Programming in R: S3 and R6 Course</h4><div class="card-subtitle my-0 article-metadata"><a href="https://www.datacamp.com" target="_blank" rel="noopener">DataCamp</a><span class="middot-divider"></span>
-
-            Jul 2017
-            
-            – Dec 2017
-            
-          </div>
-
-          
-
-          
-            <a class="card-link" href="https://www.datacamp.com" target="_blank" rel="noopener">
-              See certificate
-            </a>
           
         </div>
       </div>
@@ -1377,6 +1380,49 @@
       
       <div class="article-style">
         <p>The Hawaiian Islands are home to a variety of different habitats. The big island is known to have 8 out of the 13 different climate zones. Making sure that anthropogenic land use is not adversely affecting the diverse landscape is important.</p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+
+      
+
+        
+        
+        
+
+        
+          
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<div class="project-card project-item isotope-item js-id-statistical">
+  <div class="card">
+    
+    
+    <a href="/project/first_pca/"  class="card-image hover-overlay">
+      <img src="/project/first_pca/featured_hu3b6e77a8da1acacda608a54207fa0a5c_82216_550x0_resize_q90_lanczos.jpg" alt="" class="img-responsive">
+    </a>
+    
+    <div class="card-text">
+      <h4><a href="/project/first_pca/" >PCA Analysis Cropland Cover</a></h4>
+      
+      <div class="article-style">
+        <p># Load librarieslibrary(tidyverse)library(here)library(janitor)library(ggfortify)# Read dataworld_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;world_env_vars.csv&quot;)) %&gt;% clean_names() %&gt;%rename(&quot;rain_seasonality&quot; = &quot;rain_seasonailty&quot;) %&gt;% select(-country:-slope, -isothermality, -wind, -cloudiness,-contains(&quot;range&quot;), - contains(&quot;seasonality&quot;))# Create subsetworld_subset &lt;- world_df %&gt;% drop_na()my_world_pca &lt;- prcomp(world_subset, scale = TRUE)IntroductionPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset.</p>
       </div>
       
     </div>

@@ -24,30 +24,37 @@ date_format = "Jan 2006"
   title = "Carbon Accounting with Second Price Auctioning"
   url = ""
   certificate_url = ""
-  date_start = "2018-10-01"
-  date_end = ""
+  date_start = "2018-08-13"
+  date_end = "2018-08-27"
   description = """
   Our group developed a proposal for a market-based soultion to decreasing China's carbon emisisons. Among competing proposals, ours was chosen by Tsinghua University professors and awarded a 1st place prize. 
   """
 
 [[item]]
-  organization = "edX"
-  organization_url = "https://www.edx.org"
-  title = "Blockchain Fundamentals"
-  url = "https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals"
-  certificate_url = "https://www.edx.org"
-  date_start = "2018-03-01"
-  date_end = ""
-  description = "Formulated informed blockchain models, hypotheses, and use cases."
+  organization = "Harvard University"
+  organization_url = "https://www.harvard.edu"
+  title = "Highlighted Undergraduate Coursework"
+  url = ""
+  certificate_url = ""
+  date_start = "2017-01-01"
+  date_end = "2018-01-01"
+  description = """
+  * Technology, Environment, and Society - Professor Sheila Jasanoff
+  * Fundamentals of Environmental Economics and Policy - Professor Robert Stavins
+  * The Tecnology, Economics, and Public Policy of Renewable Energy - Professor George Baker
+  """
   
 [[item]]
-  organization = "DataCamp"
-  organization_url = "https://www.datacamp.com"
-  title = "Object-Oriented Programming in R: S3 and R6 Course"
+  organization = "Bren School of Environmental Science & Management"
+  organization_url = "https://www.bren.ucsb.edu/"
+  title = "Highlighted Masters Coursework"
   url = ""
-  certificate_url = "https://www.datacamp.com"
-  date_start = "2017-07-01"
-  date_end = "2017-12-21"
-  description = ""
+  certificate_url = ""
+  date_start = "2019-09-26"
+  date_end = ""
+  description = """
+  * Introduction to environmental data analysis & stats in R - Professor Allison Horst
+  * Advanced methods for environmental data analysis in R - Professor Allison Horst
+  """
 
 +++

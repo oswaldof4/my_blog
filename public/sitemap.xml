@@ -48,6 +48,16 @@
   </url>
   
   <url>
+    <loc>/project/first_pca/</loc>
+    <lastmod>2020-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/statistical/</loc>
+    <lastmod>2020-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/project/bonanza/</loc>
     <lastmod>2020-02-01T00:00:00+00:00</lastmod>
   </url>
@@ -59,11 +69,6 @@
   
   <url>
     <loc>/project/lobsters/</loc>
-    <lastmod>2019-11-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/statistical/</loc>
     <lastmod>2019-11-15T00:00:00+00:00</lastmod>
   </url>
   
