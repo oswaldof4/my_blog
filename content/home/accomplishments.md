@@ -27,7 +27,7 @@ date_format = "Jan 2006"
   date_start = "2018-10-01"
   date_end = ""
   description = """
-  Our group developed a proposal for a market-based soultion to decreasing China's carbon emisisons. Among competiting proposals, ours was chosen by Tsinghua University professors and awarded a 1st place prize. 
+  Our group developed a proposal for a market-based soultion to decreasing China's carbon emisisons. Among competing proposals, ours was chosen by Tsinghua University professors and awarded a 1st place prize. 
   """
 
 [[item]]
