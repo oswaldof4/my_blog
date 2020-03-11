@@ -14,9 +14,9 @@
     
     <item>
       <title>Bonanza Creek Snowshoe Study</title>
-      <link>/project/bonanza/task1_of/</link>
+      <link>/project/bonanza/</link>
       <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/project/bonanza/task1_of/</guid>
+      <guid>/project/bonanza/</guid>
       <description>
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
@@ -365,14 +365,13 @@ Summer
     
     <item>
       <title>Spiny lobster abundance and size within Santa Barbara LTER</title>
-      <link>/project/lobsters/kat_waldo_esm206_ass4_lobsters/</link>
+      <link>/project/lobsters/</link>
       <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
-      <guid>/project/lobsters/kat_waldo_esm206_ass4_lobsters/</guid>
+      <guid>/project/lobsters/</guid>
       <description>
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;p&gt;&lt;img src=&#34;https://cimioutdoored.org/ca-spiny-lobster/california-spiny-lobster/&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This report analyzes differences in the abundance and size of California Spiny Lobsters (Panulirus interruptus) observed at five locations along the Santa Barbara coastline by the Santa Barbara Coastal Long Term Ecological Research program (SBC LTER). Spiny lobsters play a critical predatory role in Southern California’s giant kelp forests, but are threatened by fishing pressure. The California Fish and Game’s Network of Marine Protected Areas (MPAs), Naples and Isla Vista, provide a refuge from fishing pressure and thus a unique oportunity to compare and contrast lobsters living in communities subject to and sheltered from fishing. To this end, this report examines:
 - A: changes in annual lobster abundance (counts) over time by site;
 - B: shifts in lobster size distributions between 2012 and 2018; and
@@ -435,7 +434,7 @@ ggplot(data = lob_site_yr, aes(x = yr, y = n)) +
   theme_minimal() +
   facet_wrap(~site, scales = &amp;quot;free_x&amp;quot;) +
   theme(panel.spacing = unit(2, &amp;quot;lines&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/project/lobsters/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Fig. 1: Lobster Abundance per site for years 2012-2018. Note that both sites Naples (NAPL) and Isla Vista (IVEE) are MPAs.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;results-b&#34; class=&#34;section level2&#34;&gt;
@@ -477,7 +476,7 @@ ggplot(lob_size_yr) +
            label = &amp;quot;*&amp;quot;,
            color = &amp;quot;black&amp;quot;,
            size = 7)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/project/lobsters/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Fig. 2: Distribution of lobster sizes for each site for years 2012 and 2018. Note that MPA sites Naples and Isla Vista are indicated with asterisks (*).&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;results-c&#34; class=&#34;section level2&#34;&gt;
@@ -734,13 +733,14 @@ Reed D. 2019. SBC LTER: Reef: Abundance, size and fishing effort for California 
     
     <item>
       <title>Mono Lake Annual Levels</title>
-      <link>/project/mono_lake/mono_lake/</link>
+      <link>/project/mono_lake/</link>
       <pubDate>Sun, 20 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/project/mono_lake/mono_lake/</guid>
+      <guid>/project/mono_lake/</guid>
       <description>
 
 
-&lt;p&gt;This project was an attempt to make the most imformative graph exploring Mono Lake water levels data.&lt;/p&gt;
+&lt;p&gt;This project is practice in making the most informative, finalized graph.
+Here, I explore Mono Lake water levels data.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----
 # Install packages and read data
 # ----
@@ -818,7 +818,7 @@ ggplot(data = tidy_mono) +
   labs(x = &amp;quot;Year&amp;quot;, y = &amp;quot;Water Level [ft]&amp;quot;, 
        title = &amp;quot;150 Years of Mono Lake (1850 - 2017)&amp;quot;) +
   theme_minimal()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/mono_lake/mono_lake_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/project/mono_lake/index_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This finalized graph shows the change in Mono Lake’s water levels over time. Sections of the graph are shaded to highlight important historical changes in Mono Lake’s water usage. The LA Aqueduct was completed in 1913 and after fully acquiring rights to the Mono Lake Basin water it began diverting water from the lake’s source rivers in 1941. Water levels bounce back after Mono Lake Tufa State Reserve is created. Mandates stablished in 1994 require the lake to maintain an average water level of 6392 ft indicated on the graph by the dotted red line. When water levels are low enough land bridges appear that allow animals in otherwise separate habitats to interact.&lt;/p&gt;
 &lt;div id=&#34;citations&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Citations&lt;/h2&gt;

@@ -14,14 +14,13 @@
     
     <item>
       <title>Spiny lobster abundance and size within Santa Barbara LTER</title>
-      <link>/project/lobsters/kat_waldo_esm206_ass4_lobsters/</link>
+      <link>/project/lobsters/</link>
       <pubDate>Fri, 15 Nov 2019 00:00:00 +0000</pubDate>
-      <guid>/project/lobsters/kat_waldo_esm206_ass4_lobsters/</guid>
+      <guid>/project/lobsters/</guid>
       <description>
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;p&gt;&lt;img src=&#34;https://cimioutdoored.org/ca-spiny-lobster/california-spiny-lobster/&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This report analyzes differences in the abundance and size of California Spiny Lobsters (Panulirus interruptus) observed at five locations along the Santa Barbara coastline by the Santa Barbara Coastal Long Term Ecological Research program (SBC LTER). Spiny lobsters play a critical predatory role in Southern California’s giant kelp forests, but are threatened by fishing pressure. The California Fish and Game’s Network of Marine Protected Areas (MPAs), Naples and Isla Vista, provide a refuge from fishing pressure and thus a unique oportunity to compare and contrast lobsters living in communities subject to and sheltered from fishing. To this end, this report examines:
 - A: changes in annual lobster abundance (counts) over time by site;
 - B: shifts in lobster size distributions between 2012 and 2018; and
@@ -84,7 +83,7 @@ ggplot(data = lob_site_yr, aes(x = yr, y = n)) +
   theme_minimal() +
   facet_wrap(~site, scales = &amp;quot;free_x&amp;quot;) +
   theme(panel.spacing = unit(2, &amp;quot;lines&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/project/lobsters/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Fig. 1: Lobster Abundance per site for years 2012-2018. Note that both sites Naples (NAPL) and Isla Vista (IVEE) are MPAs.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;results-b&#34; class=&#34;section level2&#34;&gt;
@@ -126,7 +125,7 @@ ggplot(lob_size_yr) +
            label = &amp;quot;*&amp;quot;,
            color = &amp;quot;black&amp;quot;,
            size = 7)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/lobsters/Kat_Waldo_ESM206_Ass4_Lobsters_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/project/lobsters/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Fig. 2: Distribution of lobster sizes for each site for years 2012 and 2018. Note that MPA sites Naples and Isla Vista are indicated with asterisks (*).&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;results-c&#34; class=&#34;section level2&#34;&gt;

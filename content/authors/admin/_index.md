@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-bio: My research interests include climate and energy, data science, and entrepreneurship.
+bio: I aim to mitigate climate impacts and clean the world's energy portfolio
 education:
   courses:
   - course: MESM Energy & Climate, Data Science Focus

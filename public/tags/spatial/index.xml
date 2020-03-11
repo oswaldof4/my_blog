@@ -14,9 +14,9 @@
     
     <item>
       <title>Hawaii spatial data exploration</title>
-      <link>/project/hawaii/oswaldo_felix_task3/</link>
+      <link>/project/hawaii/</link>
       <pubDate>Wed, 19 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>/project/hawaii/oswaldo_felix_task3/</guid>
+      <guid>/project/hawaii/</guid>
       <description>
 
 
@@ -65,11 +65,6 @@ land_use_sf &amp;lt;- read_sf(dsn = here::here(&amp;quot;csv&amp;quot;, &amp;quo
     landcover == &amp;quot;Transitional Areas&amp;quot; ~ &amp;quot;Barren Land&amp;quot;,
     landcover == &amp;quot;Mixed Barren Land&amp;quot; ~ &amp;quot;Barren Land&amp;quot;
   ))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Citations:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Land Use Land Cover of main Hawaiian Islands as of 1976Source: 1:100,000 1976 Digital GIRAS (Geographic Information Retrieval and Analysis) files. For additional information, please refer to &lt;a href=&#34;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&#34; class=&#34;uri&#34;&gt;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&lt;/a&gt;
-Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Surface Water Hyrdrologic Unit Boundaries (Watersheds) for the 8 major Hawaiian Islands. Source: GDSI, 1995, 1999; State of Hawaii Commission on Water Resource Management (CWRM), 2008. Provided to State GIS, August, 2017.
-Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/watersheds&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/watersheds&lt;/a&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;my_map &amp;lt;- ggplot() +
   geom_sf(data = land_use_sf, show.legend = T,
           aes(fill = landuse)) +
@@ -82,8 +77,13 @@ Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/water
   theme_minimal()
 
 my_map&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/project/hawaii/oswaldo_felix_task3_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/project/hawaii/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;In this map, the white lines represent the extent of watersheds. Observing the north end of the island there is a concentration of agricultural land, but also defined very small watershed areas. These relatively small watershed areas could allow for easier runoff mitigation as accountability is not as diffuse if there was instead one large watershed. The color palette accentuates urban or built up land highlighting where city development has concentrated on the coast. Many of the small red spots scattered on the island are from industrial power plants. The watershed lines converge at the top of each of the two volcanoes. Mauna Kea is the barren land spot in the northern section of the island, while Mauna Loa is the barren spot in the southern section. Another interesting effect is the order in which land use areas appear as one moves away from the center of the volcanoes. Next to barren land there’s a high chance for rangle land to appear, followed by forests, and then agricultural land.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Citations:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Land Use Land Cover of main Hawaiian Islands as of 1976Source: 1:100,000 1976 Digital GIRAS (Geographic Information Retrieval and Analysis) files. For additional information, please refer to &lt;a href=&#34;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&#34; class=&#34;uri&#34;&gt;http://files.hawaii.gov/dbedt/op/gis/data/lulc.pdf&lt;/a&gt;
+Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/land-use-land-cover-lulc&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Surface Water Hyrdrologic Unit Boundaries (Watersheds) for the 8 major Hawaiian Islands. Source: GDSI, 1995, 1999; State of Hawaii Commission on Water Resource Management (CWRM), 2008. Provided to State GIS, August, 2017.
+Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/watersheds&#34; class=&#34;uri&#34;&gt;http://geoportal.hawaii.gov/datasets/watersheds&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
