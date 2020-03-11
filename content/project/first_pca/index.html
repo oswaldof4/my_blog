@@ -1,0 +1,63 @@
+---
+title: "PCA Analysis Cropland Cover"
+author: "Oswaldo Felix"
+date: "2020-02-05"
+output: html_document
+tags:
+  - statistical
+---
+
+
+
+<pre class="r"><code># Load libraries
+
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggfortify)
+
+# Read data
+
+world_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;world_env_vars.csv&quot;)) %&gt;% 
+  clean_names() %&gt;%
+  rename(&quot;rain_seasonality&quot; = &quot;rain_seasonailty&quot;) %&gt;% 
+  select(-country:-slope, -isothermality, -wind, -cloudiness,
+         -contains(&quot;range&quot;), - contains(&quot;seasonality&quot;))</code></pre>
+<pre class="r"><code># Create subset
+
+world_subset &lt;- world_df %&gt;% 
+  drop_na()
+
+my_world_pca &lt;- prcomp(world_subset, scale = TRUE)</code></pre>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.</p>
+<div id="pca-biplot" class="section level3">
+<h3>PCA Biplot</h3>
+<pre class="r"><code># Generate biplot
+
+my_biplot &lt;- autoplot(my_world_pca,
+                      colour = NA,
+                      loadings.label = TRUE,
+                      loadings.label.size = 3,
+                      loadings.label.colour = &quot;black&quot;,
+                      loadings.label.repel = TRUE) +
+  scale_x_continuous(limits = c(-0.15, 0.15)) +
+  theme_light()
+
+my_biplot</code></pre>
+<p><img src="/project/first_pca/index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><strong>Figure 1.</strong> <em>All variables show some negative correlation (angle &gt; 90) with cropland cover</em></p>
+<p>Takeaways:</p>
+<ul>
+<li><p>Cropland cover is strongly inversely correlated with cold temperature statistics</p></li>
+<li><p>Cropland cover is also inversely correlated with large amounts of rain, but not as strongly as the relationship seen with cold temperatures</p></li>
+<li><p>Tree canopy cover positively correlates with rain statistics</p></li>
+<li><p>Rain and temperature statistics correlate within respective categories</p></li>
+</ul>
+</div>
+<div id="citations" class="section level3">
+<h3>Citations</h3>
+<p>The data was compiled by <span class="citation">@zander_venter</span> on Kaggle and originates from the <a href="https://earthengine.google.com/">Google Earth Engine</a>.</p>
+</div>
+</div>

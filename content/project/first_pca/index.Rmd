@@ -1,0 +1,76 @@
+---
+title: "PCA Analysis Cropland Cover"
+author: "Oswaldo Felix"
+date: "2020-02-05"
+output: html_document
+tags:
+  - statistical
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, message = FALSE, warning = FALSE)
+```
+
+```{r}
+# Load libraries
+
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggfortify)
+
+# Read data
+
+world_df <- read_csv(here::here("csv", "world_env_vars.csv")) %>% 
+  clean_names() %>%
+  rename("rain_seasonality" = "rain_seasonailty") %>% 
+  select(-country:-slope, -isothermality, -wind, -cloudiness,
+         -contains("range"), - contains("seasonality"))
+
+```
+
+```{r}
+# Create subset
+
+world_subset <- world_df %>% 
+  drop_na()
+
+my_world_pca <- prcomp(world_subset, scale = TRUE)
+
+```
+
+## Introduction
+
+Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.
+
+### PCA Biplot
+```{r, }
+# Generate biplot
+
+my_biplot <- autoplot(my_world_pca,
+                      colour = NA,
+                      loadings.label = TRUE,
+                      loadings.label.size = 3,
+                      loadings.label.colour = "black",
+                      loadings.label.repel = TRUE) +
+  scale_x_continuous(limits = c(-0.15, 0.15)) +
+  theme_light()
+
+my_biplot
+```
+
+**Figure 1.** *All variables show some negative correlation (angle > 90) with cropland cover*
+
+Takeaways:
+
+- Cropland cover is strongly inversely correlated with cold temperature statistics
+
+- Cropland cover is also inversely correlated with large amounts of rain, but not as strongly as the relationship seen with cold temperatures
+
+- Tree canopy cover positively correlates with rain statistics
+
+- Rain and temperature statistics correlate within respective categories
+
+### Citations
+
+The data was compiled by @zander_venter on Kaggle and originates from the [Google Earth Engine](https://earthengine.google.com/).
