@@ -1,0 +1,109 @@
+---
+title: "Bonanza Creek Snowshoe Study"
+author: "Oswaldo Felix"
+date: "2020-02-01"
+output: html_document
+tags:
+- timeseries
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = T, message = FALSE, warning = FALSE)
+```
+
+![](https://cottagelife.com/wp-content/uploads/2019/01/shutterstock_519516277.jpg)
+
+Snowshoe hares are an important prey species. This project uses recordings from a catch and release operation over a 13 year time span to infer population dynamics. Using the dataset, the project explores year-to-year weight discrepancies among hares caught in warm months vs cold months. Ultimately, seasonal weight variations follow expected weight variations, but lack an annual trend. 
+
+```{r, include = T}
+# Load libraries and data
+
+library(tidyverse)
+library(here)
+library(lubridate)
+library(kableExtra)
+
+hare_df <- read_csv(here::here("csv", "showshoe_lter.csv"))
+
+# Wrangle data
+hare_select <- hare_df %>% 
+  select(-time, -notes) %>% 
+  mutate(date = mdy(date),
+         year = lubridate::year(date),
+         month = lubridate::month(date),
+         day = lubridate::day(date)
+          ) %>% 
+  mutate(age = case_when(age %in% c("J", "j", "J 3/4") ~ "Juvenile",
+                         age %in% c("A", "a 1 yr.", "a 3/4 yr.", "a 1 yr", 
+                                    "1 yr.", "2 yrs.", "a 2 yrs.", "2.25 yrs", 
+                                    "3.5 yrs.", "1 yr", "2 yrs", "a", "1", "1.25", 
+                                    "1.5", "A 3/4", "A 1/2", "3 yrs.", "2.5 yrs",
+                                    "3.25 yrs.", "A 1.5", "NA", "u", "?", "U", "3/4/13", 
+                                    "1/4/13", "1/2/13") ~ "Adult")
+  ) %>%
+  mutate(season = case_when(month %in% c(4:9) ~ "Summer",
+                            month %in% c(1:3, 10:12) ~ "Winter"
+                            )
+  )
+```
+
+
+```{r, fig.width = 10, fig.height = 5}
+# Visualize data
+ggplot(data = hare_select, aes(x = year, y = weight)) +
+  geom_boxplot(aes(group = year,  y = weight), color = "wheat4",
+               alpha = 0.8, outlier.shape = NA, varwidth = TRUE) +
+  geom_jitter(aes(pch = age, color = season), 
+             alpha = 0.6, width = 0.2, na.rm = FALSE) +
+  facet_wrap(~season) +
+  guides(color = FALSE) +
+  labs(pch = "Age", x = "Year", y = "Weight [g]",
+       title = "Snowshoe hare annual weight") +
+  theme_bw()
+```
+
+**Figure 1.** *Summer months have a wide range of weight values due to the abundance of smaller juveniles during birthing months. Nearly any hare below 1000 grams was a juvenile. The width of the boxplot shows the relative strength of its median estimate.* 
+
+**Note:** *Some entries for age where logged with a different method and have been omitted as NA's*
+
+
+```{r, include = FALSE}
+# Wrangle table
+
+hare_sum <- hare_select %>% 
+  select(year, weight, season) %>% 
+  group_by(year, season) %>% 
+  summarize(
+    sample_size = n(),
+    mean_weight = mean(weight, na.rm = TRUE),
+    se_weight = sd(weight, na.rm = TRUE) / sqrt(n())
+  ) %>% 
+  filter(sample_size > 100)
+
+hare_table <- hare_sum %>% 
+  rename("Mean Weight [g]" = mean_weight,
+         "Standard Error" = se_weight,
+         "Sample Size" = sample_size,
+         "Year" = year,
+         "Season" = season) 
+```
+
+Below is a table of summary statistics for years and seasons with a large sample size (n > 100). 
+
+## Raw data summary
+```{r}
+# Display table
+
+kable(hare_table) %>%
+  kable_styling(bootstrap_options = c("striped", "basic", "hover")) %>% 
+  row_spec(c(1,3,5:7,9,11:13,15), color = "red") %>% 
+  row_spec(c(2,4,6,8,10,14), bold = TRUE, color = "skyblue")
+```
+
+**Figure 2.** *Winter months consistently have the highest average weight. Extra grams of fat help keep the hare warm, and most hares are adults. Summer sample sizes may be larger due to added abundance of juveniles.*
+
+**Note:** *This data includes information from hares not plotted on the previous graph (age = NA).*
+
+### Citations
+
+Data from: Kielland K., F. S. Chapin, R. W. Ruess. 2017. Snowshoe hare physical data in Bonanza Creek Experimental Forest: 1999-Present. Environmental Data Initiative. https://doi.org/10.6073/pasta/03dce4856d79b91557d8e6ce2cbcdc14.
