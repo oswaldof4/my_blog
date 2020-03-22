@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-bio: I aim to mitigate climate impacts and clean the world's energy portfolio
+bio: I aim to mitigate climate impacts while cleaning the world's energy portfolio
 education:
   courses:
   - course: MESM Energy & Climate, Data Science Focus
@@ -39,4 +39,4 @@ user_groups:
 - Visitors
 ---
 
-Oswaldo Felix graduated from Harvard University (2019) with a Bachelor of Arts in Environmental Science and Public Policy. His coursework, emphasizing energy resource management, strengthened his beliefs that energy conservation is important to both our environmental and economic futures. Oswaldo is seeking solutions to reduce problems of wasted energy. Oswaldo’s capstone project, advised by Professors Daniel P. Schrag and John H. Shaw, discussed nuclear waste management calling attention to a neglected system that leaves dangerous waste uncontained. He is proudest of his experience delivering a mock-business proposal where his group investigated an economically favorable storage system for California’s energy grid. Oswaldo found the project rewarding because it applied interdisciplinary concepts to a real-world framework. At Bren, Oswaldo hopes to study the energy sector to identify where he can make the most impact with his passion and ability. 
+Oswaldo Felix graduated from Harvard University (2019) with a BA in Environmental Science and Public Policy. His coursework, emphasizing energy resource management, strengthened his beliefs that system management is important to both our environmental and economic futures. Oswaldo is seeking solutions to reduce problems of wasted energy. Oswaldo’s capstone project, advised by Professors Daniel P. Schrag and John H. Shaw, discussed nuclear waste management calling attention to a neglected system that leaves dangerous waste uncontained. He is proudest of his experience delivering a mock-business proposal where his group investigated the economic constraints of novel storage systems for California’s energy grid. Oswaldo found the project rewarding because it applied interdisciplinary concepts to a real-world framework. At Bren, Oswaldo is involved with the eco-entrepreneurship venture, Unicado, where his group seeks to create a market solution that utilizes invasive species. Using food waste, we believe we can enhance the flavor profile of purple sea urchins and capitalize on the high demand locally and eventually in the Japanese market. He is certain that by improving his business acumen Oswaldo will be able to make the most impact with his passion and ability for the energy sector.
