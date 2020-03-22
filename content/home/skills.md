@@ -37,16 +37,16 @@ subtitle = ""
   icon_pack = "fas"
   name = "Spanish"
   description = "Native Speaker"
+
+[[feature]]
+  icon = "music"
+  icon_pack = "fas"
+  name = "Orchestra/Band"
+  description = "Clarinet +8 Years"  
   
 [[feature]]
   icon = "database"
   icon_pack = "fas"
   name = "GIS"
   description = "+3 Months"
-  
-[[feature]]
-  icon = "music"
-  icon_pack = "fas"
-  name = "Orchestra/Band"
-  description = "Clarinet +8 Years"  
 +++
