@@ -11,6 +11,10 @@ tags:
 knitr::opts_chunk$set(echo = T, message = FALSE, warning = FALSE)
 ```
 
+## Introduction
+
+Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.
+
 ```{r}
 # Load libraries
 
@@ -39,12 +43,9 @@ my_world_pca <- prcomp(world_subset, scale = TRUE)
 
 ```
 
-## Introduction
-
-Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.
 
 ### PCA Biplot
-```{r, }
+```{r,}
 # Generate biplot
 
 my_biplot <- autoplot(my_world_pca,
