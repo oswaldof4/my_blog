@@ -159,6 +159,9 @@ Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/water
       <description>
 
 
+&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries
 
 library(tidyverse)
@@ -179,9 +182,6 @@ world_subset &amp;lt;- world_df %&amp;gt;%
   drop_na()
 
 my_world_pca &amp;lt;- prcomp(world_subset, scale = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.&lt;/p&gt;
 &lt;div id=&#34;pca-biplot&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;PCA Biplot&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Generate biplot
@@ -1204,9 +1204,9 @@ Crash --&amp;gt; [*]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;renders as&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;Write math example&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;Write diagram example&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt;Do something else&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write math example&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write diagram example&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Do something else&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;tables&#34;&gt;Tables&lt;/h3&gt;
 &lt;p&gt;Represent your data in tables:&lt;/p&gt;

@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="# Load librarieslibrary(tidyverse)library(here)library(janitor)library(ggfortify)# Read dataworld_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;world_env_vars.csv&quot;)) %&gt;% clean_names() %&gt;%rename(&quot;rain_seasonality&quot; = &quot;rain_seasonailty&quot;) %&gt;% select(-country:-slope, -isothermality, -wind, -cloudiness,-contains(&quot;range&quot;), - contains(&quot;seasonality&quot;))# Create subsetworld_subset &lt;- world_df %&gt;% drop_na()my_world_pca &lt;- prcomp(world_subset, scale = TRUE)IntroductionPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset.">
+  <meta name="description" content="IntroductionPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.">
 
   
   <link rel="alternate" hreflang="en-us" href="/project/first_pca/">
@@ -233,7 +233,7 @@
   <meta property="og:site_name" content="Waldo&#39;s World">
   <meta property="og:url" content="/project/first_pca/">
   <meta property="og:title" content="PCA Analysis Cropland Cover | Waldo&#39;s World">
-  <meta property="og:description" content="# Load librarieslibrary(tidyverse)library(here)library(janitor)library(ggfortify)# Read dataworld_df &lt;- read_csv(here::here(&quot;csv&quot;, &quot;world_env_vars.csv&quot;)) %&gt;% clean_names() %&gt;%rename(&quot;rain_seasonality&quot; = &quot;rain_seasonailty&quot;) %&gt;% select(-country:-slope, -isothermality, -wind, -cloudiness,-contains(&quot;range&quot;), - contains(&quot;seasonality&quot;))# Create subsetworld_subset &lt;- world_df %&gt;% drop_na()my_world_pca &lt;- prcomp(world_subset, scale = TRUE)IntroductionPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset."><meta property="og:image" content="/project/first_pca/featured.jpg">
+  <meta property="og:description" content="IntroductionPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables."><meta property="og:image" content="/project/first_pca/featured.jpg">
   <meta property="twitter:image" content="/project/first_pca/featured.jpg"><meta property="og:locale" content="en-us">
   
     
@@ -285,7 +285,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "# Load libraries\rlibrary(tidyverse)\rlibrary(here)\rlibrary(janitor)\rlibrary(ggfortify)\r# Read data\rworld_df \u0026lt;- read_csv(here::here(\u0026quot;csv\u0026quot;, \u0026quot;world_env_vars.csv\u0026quot;)) %\u0026gt;% clean_names() %\u0026gt;%\rrename(\u0026quot;rain_seasonality\u0026quot; = \u0026quot;rain_seasonailty\u0026quot;) %\u0026gt;% select(-country:-slope, -isothermality, -wind, -cloudiness,\r-contains(\u0026quot;range\u0026quot;), - contains(\u0026quot;seasonality\u0026quot;))\r# Create subset\rworld_subset \u0026lt;- world_df %\u0026gt;% drop_na()\rmy_world_pca \u0026lt;- prcomp(world_subset, scale = TRUE)\rIntroduction\rPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset."
+  "description": "Introduction\rPrincipal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables."
 }
 </script>
 
@@ -669,6 +669,9 @@
       
 
 
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.</p>
 <pre class="r"><code># Load libraries
 
 library(tidyverse)
@@ -689,9 +692,6 @@ world_subset &lt;- world_df %&gt;%
   drop_na()
 
 my_world_pca &lt;- prcomp(world_subset, scale = TRUE)</code></pre>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.</p>
 <div id="pca-biplot" class="section level3">
 <h3>PCA Biplot</h3>
 <pre class="r"><code># Generate biplot
@@ -856,7 +856,7 @@ my_biplot</code></pre>
     <div class="media-body">
       <h5 class="card-title"><a href="/">Oswaldo Felix</a></h5>
       <h6 class="card-subtitle">MESM Class of 2021</h6>
-      <p class="card-text">I aim to mitigate climate impacts and clean the world&rsquo;s energy portfolio</p>
+      <p class="card-text">I aim to mitigate climate impacts while cleaning the world&rsquo;s energy portfolio</p>
       <ul class="network-icon" aria-hidden="true">
   
     

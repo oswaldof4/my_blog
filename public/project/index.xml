@@ -95,6 +95,9 @@ Accessed online from: &lt;a href=&#34;http://geoportal.hawaii.gov/datasets/water
       <description>
 
 
+&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load libraries
 
 library(tidyverse)
@@ -115,9 +118,6 @@ world_subset &amp;lt;- world_df %&amp;gt;%
   drop_na()
 
 my_world_pca &amp;lt;- prcomp(world_subset, scale = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;introduction&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.&lt;/p&gt;
 &lt;div id=&#34;pca-biplot&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;PCA Biplot&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Generate biplot

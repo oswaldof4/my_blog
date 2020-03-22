@@ -9,6 +9,9 @@ tags:
 
 
 
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.</p>
 <pre class="r"><code># Load libraries
 
 library(tidyverse)
@@ -29,9 +32,6 @@ world_subset &lt;- world_df %&gt;%
   drop_na()
 
 my_world_pca &lt;- prcomp(world_subset, scale = TRUE)</code></pre>
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>Principal-component-analysis is extremely useful for discerning correlation of variables within a given dataset. This project seeks to find country-level effects of increasing cropland on annual environmental extremes. By plotting eigenvectors of each variable on a biplot, one can quickly qualitatively assess trends among variables.</p>
 <div id="pca-biplot" class="section level3">
 <h3>PCA Biplot</h3>
 <pre class="r"><code># Generate biplot
