@@ -35,7 +35,7 @@ date_format = "Jan 2006"
   company_url = "https://www.housing.ucsb.edu/graduate-students/graduate-student-apartments-community-council-gsacc"
   location = "Goleta, CA"
   date_start = "2019-10-01"
-  date_end = "2019-04-01"
+  date_end = "2020-04-01"
   description = """
   * Managed an annual budget of $10,000 for event programming and student reimbursement
   * Implemented a sustainability focus for our event planning and community gift
