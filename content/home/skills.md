@@ -18,7 +18,7 @@ subtitle = ""
   icon = "r-project"
   icon_pack = "fab"
   name = "R-Studio"
-  description = "+6 Months"
+  description = "+1 Year"
   
 [[feature]]
   icon = "file-excel"
@@ -45,8 +45,8 @@ subtitle = ""
   description = "Clarinet +8 Years"  
   
 [[feature]]
-  icon = "database"
-  icon_pack = "fas"
-  name = "GIS"
+  icon = "python"
+  icon_pack = "fab"
+  name = "Python"
   description = "+3 Months"
 +++
