@@ -21,7 +21,7 @@ interests:
 name: Oswaldo Felix
 organizations:
 - name: Bren School of Environmental Science and Public Policy
-  url: ""
+  url: "https://bren.ucsb.edu/"
 role: MESM Class of 2021
 - name: EDF Renewables
   url: ""
