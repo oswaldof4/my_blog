@@ -23,6 +23,9 @@ organizations:
 - name: Bren School of Environmental Science and Public Policy
   url: ""
 role: MESM Class of 2021
+- name: EDF Renewables
+  url: ""
+role: Technical Services Intern
 social:
 - icon: envelope
   icon_pack: fas
