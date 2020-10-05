@@ -18,6 +18,19 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
+  title = "Technical Services Analyst"
+  company = "EDF Renewables North America"
+  company_url = "https://www.edf-re.com/"
+  location = "San Diego, CA"
+  date_start = "2019-06-22"
+  date_end = ""
+  description = """
+  * Analyzed the accuracy and reliability of multiple solar forecasting services
+  * Leveraged machine learning code to develop models for forecasting CAISO real-time LMP
+  * Researched Chinese battery manufacturers and facilitated legal agreements
+  """
+
+[[experience]]
   title = "Energy Analyst Intern"
   company = "UCSB Energy & Engineering"
   company_url = "https://www.energy.ucsb.edu/"
