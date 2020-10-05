@@ -22,7 +22,7 @@ date_format = "Jan 2006"
   company = "EDF Renewables North America"
   company_url = "https://www.edf-re.com/"
   location = "San Diego, CA"
-  date_start = "2019-06-22"
+  date_start = "2020-06-22"
   date_end = ""
   description = """
   * Analyzed the accuracy and reliability of multiple solar forecasting services
