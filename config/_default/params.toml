@@ -86,14 +86,14 @@ phone = "310 339 6116"
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-address = {street = "555 E. Carson St. #99", city = "Carson", region = "CA", postcode = "90745", country = "United States", country_code = "US"}
+address = {street = "2268 28th St. Apt 4", city = "Santa Monica", region = "CA", postcode = "90405", country = "United States", country_code = "US"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-coordinates = {latitude = "33.832536", longitude = "-118.266398"}
+coordinates = {latitude = "34.023284", longitude = "-118.459797"}
 
 # Directions for visitors to locate you.
-directions = "Currently in self-quarantine due to COVID-19"
+directions = "Currently not accepting house visits due to COVID-19"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
